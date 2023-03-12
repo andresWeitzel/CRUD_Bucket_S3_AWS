@@ -7,10 +7,10 @@ const { sdkStreamMixin } = require("@aws-sdk/util-stream-node");
 let objectString;
 
 const get = async()=> {
-  //Checks
+  try {
+      //Checks
   objectString = "";
 
-  try {
     const client = new S3Client({
       forcePathStyle: true,
       credentials: {
