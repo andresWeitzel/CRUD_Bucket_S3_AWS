@@ -18,28 +18,31 @@ provider:
       
 
 plugins:
+  - serverless-s3-local
   - serverless-offline-ssm
   - serverless-offline
 
 functions:
-  helloTest:
-    handler: src/controllers/test/hello.handler
+  debugBucketS3:
+    handler : src/debug/bucketS3.handler
     events:
-      - http:
-          path: /test
-          method: get
-          private: true
+      - s3: local-bucket
+        event: s3:*      
 
 
 resources:
   - ${file(src/resources/api-gateway.yml)}
+  - ${file(src/resources/bucket-s3.yml)}
 
 custom:
-  serverless-offline:
-    httpPort: 4000
-    lambdaPort: 4002
+  s3:
+    host: localhostdir
+    directory: /tmp
   serverless-offline-ssm:
     stages:
       - dev
     ssm: 
-      ${file(./serverless_ssm.yml)}
+      ${file(./serverless_ssm.yml)}    
+  serverless-offline:
+    httpPort: 4000
+    lambdaPort: 4002

@@ -69,7 +69,8 @@ npm i
   * Creamos el archivo con el name `serverless_ssm.yml`. Este deberá estar a la misma altura que el serverless.yml
   * Añadimos las ssm necesarias dentro del archivo.
   ```git
-
+    # Keys
+    X_API_KEY : 'f98d8cd98h73s204e3456998ecl9427j'
   ```  
 * Ejecutamos el proyecto
 ```git
@@ -109,6 +110,10 @@ serverless create --template aws-nodejs
 * Inicializamos un proyecto npm
 ```git
 npm init -y
+* Instalamos S3 local
+```git
+npm install serverless-s3-local --save-dev
+```
 ```
 * Instalamos serverless offline 
 ```git
