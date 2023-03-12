@@ -3,7 +3,7 @@
 ![Index app](./doc/assets/CRUD_Bucket_s3.drawio.png)
 
 # CRUD_Bucket_S3_AWS
-CRUD Modelo para el manejo de archivos implementado con Systems Manager Parameter Store, Bucket S3, Api-Gateway, Serverless-Framework, Lambda, NodeJs, entre otros. Los servicios de aws se prueban en local. El código del proyecto y la documentación de este (menos doc técnica), ha sido desarrollado/a en inglés.
+CRUD Modelo para el manejo de archivos implementado con Systems Manager Parameter Store, Bucket S3, Api-Gateway, Serverless-Framework, Lambda, NodeJs, entre otros. Los servicios de aws se implementan en local. El código del proyecto y la documentación de este (menos doc técnica), ha sido desarrollado/a en inglés.
 
 <br>
 
