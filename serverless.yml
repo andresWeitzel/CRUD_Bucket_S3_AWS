@@ -28,6 +28,14 @@ functions:
     events:
       - s3: local-bucket
         event: s3:*      
+  uploadFile:
+    handler: src/controllers/uploadFile.handler
+    description: file storage in s3 bucket.
+    events:
+      - http:
+          method: POST
+          path: /dev/upload-file
+          private: true        
 
 
 resources:
