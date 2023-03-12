@@ -27,14 +27,13 @@ functions:
     handler : src/debug/bucketS3.handler
     events:
       - s3: local-bucket
-        event: s3:*      
-  uploadFile:
-    handler: src/controllers/uploadFile.handler
-    description: file storage in s3 bucket.
+  uploadObject:
+    handler: src/controllers/uploadObject.handler
+    description: object storage in s3 bucket.
     events:
       - http:
           method: POST
-          path: /dev/upload-file
+          path: /upload-object
           private: true        
 
 

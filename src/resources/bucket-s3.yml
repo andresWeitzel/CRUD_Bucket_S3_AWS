@@ -2,4 +2,4 @@ Resources:
   Buckets3:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: FILE_UPLOAD_BUCKET_NAME
+      BucketName: BUCKET_S3_STORAGE

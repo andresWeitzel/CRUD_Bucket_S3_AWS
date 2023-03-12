@@ -1,10 +1,16 @@
 "use strict";
 
 //External
-const {GetObjectCommand } = require("@aws-sdk/client-s3");
-const { sdkStreamMixin } = require("@aws-sdk/util-stream-node");
+const {
+  GetObjectCommand
+} = require("@aws-sdk/client-s3");
+const {
+  sdkStreamMixin
+} = require("@aws-sdk/util-stream-node");
 //Bucket
-const { newClientS3 } = require('./clientS3');
+const {
+  newClientS3
+} = require('./clientS3');
 //Const/Vars
 let objectString;
 let clientS3;
@@ -12,16 +18,15 @@ let clientS3;
 
 
 /**
- * @description read bucket files
+ * @description read bucket objects
  * @returns a list of objects
  */
-const get = async() => {
+const get = async () => {
   try {
-      //Checks
-  objectString = "";
+    //Checks
+    objectString = "";
 
-  clientS3 = await newClientS3();
-
+    clientS3 = await newClientS3();
 
     let resp = await clientS3.send(
       new GetObjectCommand({
@@ -40,4 +45,6 @@ const get = async() => {
   }
 }
 
-module.exports = { get };
+module.exports = {
+  get
+};

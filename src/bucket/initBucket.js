@@ -11,7 +11,7 @@ let initJson;
 
 
 /**
- * @description append bucket files
+ * @description append bucket objects
  * @param {Object} event Object type
  */
 const put = async () => {

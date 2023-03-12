@@ -5,7 +5,7 @@
  * @param {Object} input Object type
  * @returns a json for the lambda response
  */
-const requestResult = async (statusCode,message, input) => {
+const bodyResponse = async (statusCode,message, input) => {
     return {
         statusCode: statusCode,
         body: JSON.stringify(
@@ -19,4 +19,4 @@ const requestResult = async (statusCode,message, input) => {
     };
 }
 
-module.exports = { requestResult }
+module.exports = { bodyResponse }

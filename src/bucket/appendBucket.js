@@ -10,7 +10,7 @@ const { newClientS3 } = require('./clientS3');
 let clientS3;
 
 /**
- * @description append bucket files
+ * @description append bucket objects
  * @param {Object} event Object type
  */
 const put = async (appendData) => {
