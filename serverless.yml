@@ -1,0 +1,45 @@
+
+service: crud-bucket-s3-aws
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  stage: dev
+  region: us-east-1
+  memorySize: 512
+  timeout: 10
+  environment: ${file(./serverless_ssm.yml)}
+  apiGateway:
+    apiKeys:
+      - name : xApiKey
+        value : ${file(./serverless_ssm.yml):X_API_KEY}
+      
+
+plugins:
+  - serverless-offline-ssm
+  - serverless-offline
+
+functions:
+  helloTest:
+    handler: src/controllers/test/hello.handler
+    events:
+      - http:
+          path: /test
+          method: get
+          private: true
+
+
+resources:
+  - ${file(src/resources/api-gateway.yml)}
+
+custom:
+  serverless-offline:
+    httpPort: 4000
+    lambdaPort: 4002
+  serverless-offline-ssm:
+    stages:
+      - dev
+    ssm: 
+      ${file(./serverless_ssm.yml)}
