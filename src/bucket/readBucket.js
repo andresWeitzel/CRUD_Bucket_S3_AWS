@@ -1,27 +1,29 @@
 "use strict";
 
 //External
-const { S3Client, GetObjectCommand } = require("@aws-sdk/client-s3");
+const {GetObjectCommand } = require("@aws-sdk/client-s3");
 const { sdkStreamMixin } = require("@aws-sdk/util-stream-node");
+//Bucket
+const { newClientS3 } = require('./clientS3');
 //Const/Vars
 let objectString;
+let clientS3;
 
-const get = async()=> {
+
+
+/**
+ * @description read bucket files
+ * @returns a list of objects
+ */
+const get = async() => {
   try {
       //Checks
   objectString = "";
 
-    const client = new S3Client({
-      forcePathStyle: true,
-      credentials: {
-        // This specific key is required when working offline
-        accessKeyId: "S3RVER",
-        secretAccessKey: "S3RVER",
-      },
-      endpoint: "http://localhost:4569",
-    });
+  clientS3 = await newClientS3();
 
-    let resp = await client.send(
+
+    let resp = await clientS3.send(
       new GetObjectCommand({
         Bucket: "local-bucket",
         Key: "bucketS3.json",
