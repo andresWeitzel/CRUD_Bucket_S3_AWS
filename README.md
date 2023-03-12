@@ -59,6 +59,14 @@ git clone https://github.com/andresWeitzel/Microservice_Mercadolibre_Users_AWS
 ```git
 cd 'projectName'
 ```
+* Instalamos Serverless Framework de forma global si es que aún no lo hemos realizado
+```git
+npm install -g serverless
+```
+* Verificamos la versión de Serverless instalada
+```git
+sls -v
+```
 * Instalamos todos los paquetes necesarios
 ```git
 npm i
@@ -72,7 +80,12 @@ npm i
     # Keys
     X_API_KEY : 'f98d8cd98h73s204e3456998ecl9427j'
 
-     BEARER_TOKEN : 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c'
+    BEARER_TOKEN : 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c'
+
+    # Bucket
+    BUCKET_NAME : BUCKET_S3_STORAGE
+
+
 
   ```  
 * Ejecutamos el proyecto
@@ -113,10 +126,14 @@ serverless create --template aws-nodejs
 * Inicializamos un proyecto npm
 ```git
 npm init -y
+```
 * Instalamos S3 local
 ```git
 npm install serverless-s3-local --save-dev
 ```
+* Instalamos el Cliente s3
+```git
+npm install @aws-sdk/client-s3
 ```
 * Instalamos serverless offline 
 ```git

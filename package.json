@@ -23,6 +23,8 @@
     "serverless-s3-local": "^0.6.1"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.289.0",
+    "node-input-validator": "^4.5.1",
     "validator": "^13.9.0"
   }
 }

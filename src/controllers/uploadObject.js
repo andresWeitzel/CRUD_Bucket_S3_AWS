@@ -23,29 +23,29 @@ const { validateAuthHeaders } = require("../helpers/auth/headers");
 
 //Const/Vars
 let content;
-let appendPayer;
 let jsonInit;
 let uuid;
+let headersObj;
+let body;
 let checkContent;
 let validateReqParams;
-
+let validateAuth;
 
 module.exports.handler = async (event) => {
   try {
     //Event
-    headers = await JSON.parse(event.headers);
-    body = await JSON.parse(event.body);
+    // headersObj =  JSON.parse(await event.headers);
+    // bodyObj =  JSON.parse(await event.body);
 
     //Init
     jsonInit = [];
     content = "";
-    appendPayer = "";
     uuid = "";
     checkContent = false;
 
 
     //-- start with validation Headers  ---
-    validateReqParams = await validateHeadersParams(headers);
+    validateReqParams = await validateHeadersParams(event);
 
     if (!validateReqParams) {
       return await bodyResponse(
@@ -55,7 +55,7 @@ module.exports.handler = async (event) => {
       );
     }
 
-    validateAuth = await validateAuthHeaders(headers);
+    validateAuth = await validateAuthHeaders(event);
 
     if (!validateAuth) {
       return await bodyResponse(
