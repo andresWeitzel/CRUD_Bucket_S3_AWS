@@ -16,33 +16,37 @@ const {
   validateHeadersParams,
 } = require("../helpers/validator/http/requestHeadersParams");
 const { validateAuthHeaders } = require("../helpers/auth/headers");
-// const {
-//   validateBodyAddUserParams,
-// } = require("../helpers/http/users/requestBodyAddUserParams");
+const {
+  validateBodyAddObjectParams,
+} = require("../helpers/validator/http/requestBodyUploadObjectParams");
 
 
 //Const/Vars
 let content;
 let jsonInit;
 let uuid;
-let headersObj;
-let body;
+let bodyObj;
 let checkContent;
 let validateReqParams;
 let validateAuth;
+let validateBodyAddObject;
 
+/**
+ * @description add an object inside the s3 bucket 
+ * @param {Object} event Object type
+ * @returns a body response with http code, message and event
+ */
 module.exports.handler = async (event) => {
   try {
-    //Event
-    // headersObj =  JSON.parse(await event.headers);
-    // bodyObj =  JSON.parse(await event.body);
-
     //Init
     jsonInit = [];
-    content = "";
+    bodyObj=null;
     uuid = "";
     checkContent = false;
 
+    bodyObj = await JSON.parse(event.body);
+
+    console.log(bodyObj);
 
     //-- start with validation Headers  ---
     validateReqParams = await validateHeadersParams(event);
@@ -64,7 +68,22 @@ module.exports.handler = async (event) => {
         event
       );
     }
-    //-- end with validation Headers  ---
+        //-- end with validation Headers  ---
+
+
+      //-- start with validation Body  ---
+
+      validateBodyAddObject = await validateBodyAddObjectParams(bodyObj);
+
+      if (!validateBodyAddObject) {
+        return await bodyResponse(
+          statusCode.BAD_REQUEST,
+          "Bad request, check request attributes. Missing or incorrect",
+          event
+        );
+      }
+     // -- end with validation Body  ---
+
 
     // await initBucket.put();
 
