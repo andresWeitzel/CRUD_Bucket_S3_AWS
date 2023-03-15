@@ -22,10 +22,11 @@ const {
 
 
 //Const/Vars
-let content;
+let eventBody;
+let eventHeaders;
 let jsonInit;
 let uuid;
-let bodyObj;
+let body;
 let checkContent;
 let validateReqParams;
 let validateAuth;
@@ -44,12 +45,11 @@ module.exports.handler = async (event) => {
     uuid = "";
     checkContent = false;
 
-    bodyObj = await JSON.parse(event.body);
-
-    console.log(bodyObj);
-
+ 
     //-- start with validation Headers  ---
-    validateReqParams = await validateHeadersParams(event);
+    eventHeaders = await event.headers;
+
+    validateReqParams = await validateHeadersParams(eventHeaders);
 
     if (!validateReqParams) {
       return await bodyResponse(
@@ -59,21 +59,23 @@ module.exports.handler = async (event) => {
       );
     }
 
-    validateAuth = await validateAuthHeaders(event);
+    // validateAuth = await validateAuthHeaders(event);
 
-    if (!validateAuth) {
-      return await bodyResponse(
-        statusCode.UNAUTHORIZED,
-        "Not authenticated, check x_api_key and Authorization",
-        event
-      );
-    }
-        //-- end with validation Headers  ---
+    // if (!validateAuth) {
+    //   return await bodyResponse(
+    //     statusCode.UNAUTHORIZED,
+    //     "Not authenticated, check x_api_key and Authorization",
+    //     event
+    //   );
+    // }
+    //     //-- end with validation Headers  ---
 
 
       //-- start with validation Body  ---
 
-      validateBodyAddObject = await validateBodyAddObjectParams(bodyObj);
+      eventBody = await JSON.parse(event.body);
+
+      validateBodyAddObject = await validateBodyAddObjectParams(eventBody);
 
       if (!validateBodyAddObject) {
         return await bodyResponse(

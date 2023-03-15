@@ -2,30 +2,43 @@
 const { Validator } = require("node-input-validator");
 //Const/vars
 let validateCheck;
+let validatorObj;
+let eventHeadersObj;
 
 /**
  * @description We validate the request headers parameters
- * @param {Object} headers event.headers type
+ * @param {Object} eventHeaders event.headers type
  * @returns a boolean
  * @example Content-Type, Authorization, etc
  */
-const validateHeadersParams = async (headers) => {
+const validateHeadersParams = async (eventHeaders) => {
+  eventHeadersObj = null;
+  validatorObj= null;
   validateCheck = false;
 
   try{
-    if(headers != null){
-      validateCheck = new Validator(
+    if(eventHeaders != null){
+
+      eventHeadersObj ={
+        headers:{
+          contentType: await eventHeaders["Content-Type"],
+          authorization: await eventHeaders["Authorization"],
+          xApiKey: await eventHeaders["x-api-key"],
+     
+        }
+      }
+
+      validatorObj = new Validator(
         {
-          headers,
+          eventHeadersObj,
         },
         {
-          "headers": "required|object",
-          "headers.Content-Type": "required|string",
-          "headers.Authorization": "required|string|minLength:100",
-          "headers.x-api-key": "required|string|minLength:30",
+          "eventHeadersObj.headers.contentType": "required|string|maxLength:20",
+          "eventHeadersObj.headers.authorization": "required|string|minLength:100|maxLength:400",
+          "eventHeadersObj.headers.xApiKey": "required|string|minLength:30|maxLength:100",
         }
       );
-      await validateCheck.check()
+      validateCheck = await validatorObj.check()
     }
 
   } catch (error) {
