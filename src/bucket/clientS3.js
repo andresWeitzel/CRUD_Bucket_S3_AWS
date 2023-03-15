@@ -15,11 +15,10 @@ const newClientS3 = async () => {
         const client = new S3Client({
             forcePathStyle: true,
             credentials: {
-                // This specific key is required when working offline
-                accessKeyId: "S3RVER",
-                secretAccessKey: "S3RVER",
+                accessKeyId: process.env.S3_CLIENT_ACCESS_KEY_ID,
+                secretAccessKey: process.env.S3_CLIENT_SECRET_ACCESS_KEY,
             },
-            endpoint: "http://localhost:4569",
+            endpoint: process.env.S3_CLIENT_ENDPOINT,
         });
 
        return client;

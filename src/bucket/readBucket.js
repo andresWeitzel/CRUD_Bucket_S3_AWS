@@ -21,7 +21,7 @@ let clientS3;
  * @description read bucket objects
  * @returns a list of objects
  */
-const get = async () => {
+const readBucket = async () => {
   try {
     //Checks
     objectString = "";
@@ -30,8 +30,8 @@ const get = async () => {
 
     let resp = await clientS3.send(
       new GetObjectCommand({
-        Bucket: "local-bucket",
-        Key: "bucketS3.json",
+        Bucket: process.env.BUCKET_NAME,
+        Key: process.env.BUCKET_KEY,
       })
     );
 
@@ -46,5 +46,5 @@ const get = async () => {
 }
 
 module.exports = {
-  get
+  readBucket
 };

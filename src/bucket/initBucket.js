@@ -8,34 +8,33 @@ const {
 
 //Const/Vars
 let initJson;
+let content;
 
 
 /**
- * @description append bucket objects
- * @param {Object} event Object type
+ * @description We initialize the bucket with an empty json object
  */
-const put = async () => {
+const initBucket = async () => {
     try {
         //Data
         initJson = [];
 
-        content = await readBucket.get();
+        content = await readBucket();
 
-        checkContent = content == undefined || content == null ? true : false;
+        if (content==undefined || content == null) {
+            initJson = JSON.stringify(initJson);
 
-        if (checkContent) {
-            initJson = await JSON.stringify(initJson);
-
-            await appendBucket.put(initJson);
+            await appendBucket(initJson);
         } else {
             return;
         }
     } catch (error) {
         console.log(error);
+        return;
     }
 }
 
 
 module.exports = {
-    put
+    initBucket
 };

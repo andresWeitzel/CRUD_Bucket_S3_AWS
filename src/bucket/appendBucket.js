@@ -13,15 +13,15 @@ let clientS3;
  * @description append bucket objects
  * @param {Object} event Object type
  */
-const put = async (appendData) => {
+const appendBucket = async (appendData) => {
     try {
 
         clientS3 = await newClientS3();
 
         clientS3.send(
             new PutObjectCommand({
-                Bucket: "local-bucket",
-                Key: "bucketS3.json",
+                Bucket: process.env.BUCKET_NAME,
+                Key: process.env.BUCKET_KEY,
                 Body: await appendData,
             })
         );
@@ -31,5 +31,5 @@ const put = async (appendData) => {
 }
 
 module.exports = {
-    put
+    appendBucket
 };

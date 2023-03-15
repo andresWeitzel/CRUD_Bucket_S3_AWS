@@ -8,13 +8,13 @@ let validate;
 
 /**
  * @description check the x-api-key and the bearer token. In case they are not correct, we return false
- * @param {Object} event Object type
+ * @param {Object} eventHeaders event.headers type
  * @returns a boolean
  */
-const validateAuthHeaders = async (event) => {
+const validateAuthHeaders = async (eventHeaders) => {
 
-  xApiKey = await event.headers["x-api-key"];
-  authorization = await event.headers["Authorization"];
+  xApiKey = await eventHeaders["x-api-key"];
+  authorization = await eventHeaders["Authorization"];
 
   validate = true;
 

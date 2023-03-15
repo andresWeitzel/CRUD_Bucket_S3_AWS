@@ -23,8 +23,6 @@ plugins:
   - serverless-offline
 
 functions:
-  debugBucketS3:
-    handler : src/debug/bucketS3.handler
   uploadObject:
     handler: src/controllers/uploadObject.handler
     description: object storage in s3 bucket.

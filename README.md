@@ -78,14 +78,19 @@ npm i
   * Añadimos las ssm necesarias dentro del archivo.
   ```git
     # Keys
-    X_API_KEY : 'f98d8cd98h73s204e3456998ecl9427j'
+    X_API_KEY: "f98d8cd98h73s204e3456998ecl9427j"
 
-    BEARER_TOKEN : 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c'
+    BEARER_TOKEN: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
 
     # Bucket
-    BUCKET_NAME : BUCKET_S3_STORAGE
+    BUCKET_NAME: BUCKET_S3_STORAGE
+    BUCKET_KEY: bucketS3.json
 
-
+    # S3 Client
+    # This specific key is required when working offline
+    S3_CLIENT_ACCESS_KEY_ID: S3RVER
+    S3_CLIENT_SECRET_ACCESS_KEY: S3RVER
+    S3_CLIENT_ENDPOINT: http://localhost:4569
 
   ```  
 * Ejecutamos el proyecto
