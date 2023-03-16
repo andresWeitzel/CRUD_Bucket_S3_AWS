@@ -1,6 +1,6 @@
 //Bucket
 const {
-  initBucket
+  initBucketIfEmpty
 } = require("../bucket/initBucket");
 const {
   readBucket
@@ -33,8 +33,7 @@ let eventHeaders;
 let jsonInit;
 let uuid;
 let body;
-let content;
-let checkContent;
+let bucketContent;
 let validateReqParams;
 let validateAuth;
 let validateBodyAddObject;
@@ -50,8 +49,7 @@ module.exports.handler = async (event) => {
     jsonInit = [];
     bodyObj = null;
     uuid = "";
-    content=null;
-    checkContent = false;
+    bucketContent = null;
 
 
     //-- start with validation Headers  ---
@@ -95,32 +93,47 @@ module.exports.handler = async (event) => {
     // -- end with validation Body  ---
 
 
-    await initBucket();
+    //-- start with bucket operations  ---
 
-    // content = await readBucket.get();
-    // console.log(content);
+    await initBucketIfEmpty();
 
-    // checkContent = content != null ? true : false;
+    bucketContent = await readBucket();
 
-    // if (checkContent) {
-    //   //Added unique identificator
-    //   uuid = parseInt(Math.random() * 10000000 + 100000000);
-    //   event.payer_uuid = uuid;
+    if (bucketContent == null) {
+      return await bodyResponse(
+        statusCode.INTERNAL_SERVER_ERROR,
+        "An unexpected error has occurred. The object could not be stored inside the bucket.",
+        event
+      );
+    } else {
+      //Added unique identificator for the object
+      newUUID = parseInt(Math.random() * 10000000 + 100000000);
+      eventBody.uuid = newUUID;
 
-    //   //Convert to json to save
-    //   content = await JSON.parse(content);
-    //   content.push(event);
+      //Convert to json to save
+      bucketContent = await JSON.parse(bucketContent);
+      bucketContent.push(eventBody);
 
-    //   //Json format
-    //   appendPayer = await JSON.stringify(content, null, 2);
+      //convert json to string format to save
+      let newObject = await JSON.stringify(bucketContent, null, 2);
 
-    //   await appendBucket.put(appendPayer);
-    // } else {
-    //   return;
+      await appendBucket(newObject);
 
-    // }
+      return await bodyResponse(
+        statusCode.OK,
+        bucketContent,
+        event
+      );
+    }
+    //-- end with bucket operations  ---
+
   } catch (error) {
     console.log(error);
+    return await bodyResponse(
+      statusCode.INTERNAL_SERVER_ERROR,
+      "An unexpected error has occurred. Try again",
+      event
+    );
   }
 
 }
