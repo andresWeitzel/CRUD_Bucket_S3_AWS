@@ -30,7 +30,6 @@ const initBucketIfEmpty = async () => {
         }
     } catch (error) {
         console.log(error);
-        return;
     }
 }
 

@@ -15,6 +15,16 @@ provider:
     apiKeys:
       - name : xApiKey
         value : ${file(./serverless_ssm.yml):X_API_KEY}
+  logs:
+    # Enable REST API logs
+    restApi:
+      accessLogging: true
+      format: "requestId: $context.requestId"
+      executionLogging: true
+      level: INFO
+      fullExecutionData: true
+      role: arn:aws:iam::xxxx:role
+      roleManagedExternally: false        
       
 
 plugins:
@@ -25,13 +35,20 @@ plugins:
 functions:
   uploadObject:
     handler: src/controllers/uploadObject.handler
-    description: object storage in s3 bucket.
+    description: Function to store an object inside the s3 bucket
     events:
       - http:
-          method: POST
+          method: post
           path: /upload-object
           private: true        
-
+  getObject:
+    handler: src/controllers/getObject.handler
+    description: Function to get an object from the s3 bucket
+    events:
+      - http:
+          method: get
+          path: /get-object/{uuid}
+          private: true 
 
 resources:
   - ${file(src/resources/api-gateway.yml)}
