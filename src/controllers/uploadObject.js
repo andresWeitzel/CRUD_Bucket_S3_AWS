@@ -60,8 +60,7 @@ module.exports.handler = async (event) => {
     if (!validateReqParams) {
       return await bodyResponse(
         statusCode.BAD_REQUEST,
-        "Bad request, check missing or malformed headers",
-        event
+        "Bad request, check missing or malformed headers"
       );
     }
 
@@ -70,8 +69,7 @@ module.exports.handler = async (event) => {
     if (!validateAuth) {
       return await bodyResponse(
         statusCode.UNAUTHORIZED,
-        "Not authenticated, check x_api_key and Authorization",
-        event
+        "Not authenticated, check x_api_key and Authorization"
       );
     }
     //-- end with validation Headers  ---
@@ -86,8 +84,7 @@ module.exports.handler = async (event) => {
     if (!validateBodyAddObject) {
       return await bodyResponse(
         statusCode.BAD_REQUEST,
-        "Bad request, check request attributes. Missing or incorrect",
-        event
+        "Bad request, check request attributes. Missing or incorrect"
       );
     }
     // -- end with validation Body  ---
@@ -102,37 +99,41 @@ module.exports.handler = async (event) => {
     if (bucketContent == null) {
       return await bodyResponse(
         statusCode.INTERNAL_SERVER_ERROR,
-        "An unexpected error has occurred. The object could not be stored inside the bucket.",
-        event
-      );
-    } else {
-      //Added unique identificator for the object
-      newUUID = parseInt(Math.random() * 10000000 + 100000000);
-      eventBody.uuid = newUUID;
-
-      //Convert to json to save
-      bucketContent = await JSON.parse(bucketContent);
-      bucketContent.push(eventBody);
-
-      //convert json to string format to save
-      let newObject = await JSON.stringify(bucketContent, null, 2);
-
-      await appendBucket(newObject);
-
-      return await bodyResponse(
-        statusCode.OK,
-        bucketContent,
-        event
+        "An unexpected error has occurred. The object could not be stored inside the bucket."
       );
     }
+    //Added unique identificator for the object
+    newUUID = parseInt(Math.random() * 10000000 + 100000000);
+    eventBody.uuid = newUUID;
+
+    //Convert to json to save
+    bucketContent = await JSON.parse(bucketContent);
+    bucketContent.push(eventBody);
+
+    //convert json to string format to save
+    let newObject = JSON.stringify(bucketContent, null, 2);
+
+    let newObjectResult = await appendBucket(newObject);
+
+    if (newObjectResult != null) {
+      return await bodyResponse(
+        statusCode.OK,
+        eventBody
+      );
+    } else {
+      return await bodyResponse(
+        statusCode.INTERNAL_SERVER_ERROR,
+        "An unexpected error has occurred. The object could not be stored inside the bucket."
+      )
+    }
+
     //-- end with bucket operations  ---
 
   } catch (error) {
     console.log(error);
     return await bodyResponse(
       statusCode.INTERNAL_SERVER_ERROR,
-      "An unexpected error has occurred. Try again",
-      event
+      "An unexpected error has occurred. Try again"
     );
   }
 
