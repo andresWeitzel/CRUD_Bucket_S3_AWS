@@ -20,7 +20,18 @@ CRUD Modelo para el manejo de objetos implementado con Systems Manager Parameter
  - [1.1) Ejecución del Proyecto.](#11-ejecución-del-proyecto-)
  - [1.2) Configuración del proyecto desde cero](#12-configuración-del-proyecto-desde-cero-)
  - [1.3) Tecnologías.](#13-tecnologías-)
- - [1.4) Referencias.](#14-referencias-)
+
+
+### Sección 2) Endpoints y Ejemplos 
+ 
+ - [2.0) EndPoints y recursos.](#20-endpoints-y-recursos-)
+ - [2.1) Ejemplos.](#21-ejemplos-)
+
+### Sección 3) Prueba de funcionalidad y Referencias
+ 
+ - [3.0) Prueba de funcionalidad.](#30-prueba-de-funcionalidad-)
+ - [3.1) Referencias.](#31-referencias-)
+
 
 <br>
 
@@ -156,6 +167,7 @@ sls offline start
 
 
 
+
 <br>
 
 </details>
@@ -166,26 +178,47 @@ sls offline start
   <summary>Ver</summary>
 
 
-  #### Plugins
-  * Prettier
-  * YAML
- 
  <br>
+ 
+### Tecnologías Implementadas
 
+| **Tecnologías** | **Versión** | **Finalidad** |               
+| ------------- | ------------- | ------------- |
+| [SDK](https://www.serverless.com/framework/docs/guides/sdk/) | 4.3.2  | Inyección Automática de Módulos para Lambdas |
+| [Serverless Framework Core v3](https://www.serverless.com//blog/serverless-framework-v3-is-live) | 3.23.0 | Core Servicios AWS |
+| [Systems Manager Parameter Store (SSM)](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html) | 3.0 | Manejo de Variables de Entorno |
+| [Amazon Api Gateway](https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html) | 2.0 | Gestor, Autenticación, Control y Procesamiento de la Api | 
+| [Amazon S3](https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingBucket.html) | Contenedor de Objetos | 
+| [NodeJS](https://nodejs.org/en/) | 14.18.1  | Librería JS |
+| [VSC](https://code.visualstudio.com/docs) | 1.72.2  | IDE |
+| [Postman](https://www.postman.com/downloads/) | 10.11  | Cliente Http |
+| [CMD](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/cmd) | 10 | Símbolo del Sistema para linea de comandos | 
+| [Git](https://git-scm.com/downloads) | 2.29.1  | Control de Versiones |
+
+</br>
+
+### Plugins Implementados.
+
+| **Plugin** | **Descarga** |               
+| -------------  | ------------- |
+| [Serverless Plugin](https://www.serverless.com/plugins/) | 6.2.2  | Librerías para la Definición Modular |
+| [serverless-offline](https://www.npmjs.com/package/serverless-offline) |  https://www.serverless.com/plugins/serverless-offline |
+| [serverless-offline-ssm](https://www.npmjs.com/package/serverless-offline-ssm) |  busca variables de entorno que cumplen los parámetros de SSM en el momento de la compilación y las sustituye desde un archivo  |
+| [serverless-s3-local](https://www.serverless.com/plugins/serverless-s3-local) | complemento sin servidor para ejecutar clones de S3 en local
+
+</br>
+
+### Extensiones VSC Implementados.
+
+| **Extensión** |              
+| -------------  | 
+| Prettier - Code formatter |
+| YAML - Autoformatter .yml (alt+shift+f) |
 
 <br>
 
 </details>
 
 
-### 1.4) Referencias [🔝](#índice-)
-
-<details>
-  <summary>Ver</summary>
- 
- <br>
-
-
 <br>
 
-</details>
