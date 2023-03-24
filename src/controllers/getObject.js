@@ -105,10 +105,15 @@ module.exports.handler = async (event) => {
                 statusCode.OK,
                 obj
             );
+        }else if (obj == null) {
+            return await bodyResponse(
+                statusCode.BAD_REQUEST,
+                "The object requested according to the id, is not found inside the bucket."
+            )
         } else {
             return await bodyResponse(
                 statusCode.INTERNAL_SERVER_ERROR,
-                "An unexpected error has occurred. The object could not be stored inside the bucket."
+                "An unexpected error has occurred. Cannot read bucket."
             )
         }
 
