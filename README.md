@@ -188,7 +188,7 @@ sls offline start
 | [Serverless Framework Core v3](https://www.serverless.com//blog/serverless-framework-v3-is-live) | 3.23.0 | Core Servicios AWS |
 | [Systems Manager Parameter Store (SSM)](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html) | 3.0 | Manejo de Variables de Entorno |
 | [Amazon Api Gateway](https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html) | 2.0 | Gestor, Autenticación, Control y Procesamiento de la Api | 
-| [Amazon S3](https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingBucket.html) | Contenedor de Objetos | 
+| [Amazon S3](https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingBucket.html) | 3.0 | Contenedor de Objetos | 
 | [NodeJS](https://nodejs.org/en/) | 14.18.1  | Librería JS |
 | [VSC](https://code.visualstudio.com/docs) | 1.72.2  | IDE |
 | [Postman](https://www.postman.com/downloads/) | 10.11  | Cliente Http |
@@ -199,9 +199,9 @@ sls offline start
 
 ### Plugins Implementados.
 
-| **Plugin** | **Descarga** |               
+| **Plugin** | **Descripción** |               
 | -------------  | ------------- |
-| [Serverless Plugin](https://www.serverless.com/plugins/) | 6.2.2  | Librerías para la Definición Modular |
+| [Serverless Plugin](https://www.serverless.com/plugins/) | Librerías para la Definición Modular |
 | [serverless-offline](https://www.npmjs.com/package/serverless-offline) |  https://www.serverless.com/plugins/serverless-offline |
 | [serverless-offline-ssm](https://www.npmjs.com/package/serverless-offline-ssm) |  busca variables de entorno que cumplen los parámetros de SSM en el momento de la compilación y las sustituye desde un archivo  |
 | [serverless-s3-local](https://www.serverless.com/plugins/serverless-s3-local) | complemento sin servidor para ejecutar clones de S3 en local
