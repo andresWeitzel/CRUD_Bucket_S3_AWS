@@ -24,7 +24,7 @@ const {
 } = require("../helpers/auth/headers");
 const {
   validateBodyAddObjectParams,
-} = require("../helpers/validator/http/requestBodyUploadObjectParams");
+} = require("../helpers/validator/http/requestBodyAddObjectParams");
 
 
 //Const/Vars
@@ -41,7 +41,7 @@ let validateBodyAddObject;
 /**
  * @description add an object inside the s3 bucket 
  * @param {Object} event Object type
- * @returns a body response with http code, message and event
+ * @returns a body response with http code and message.
  */
 module.exports.handler = async (event) => {
   try {

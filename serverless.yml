@@ -49,6 +49,14 @@ functions:
           method: get
           path: /get-object/{uuid}
           private: true 
+  editObject:
+    handler: src/controllers/editObject.handler
+    description: Function to edit an object from the s3 bucket
+    events:
+      - http:
+          method: put
+          path: /edit-object/{uuid}
+          private: true 
 
 resources:
   - ${file(src/resources/api-gateway.yml)}
