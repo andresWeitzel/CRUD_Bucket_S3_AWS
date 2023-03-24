@@ -218,3 +218,72 @@ sls offline start
 
 <br>
 
+
+## Sección 2) Endpoints y Ejemplos. 
+
+
+### 2.0) Endpoints y recursos [🔝](#índice-) 
+
+<details>
+  <summary>Ver</summary>
+
+<br>
+
+</details>
+
+
+
+
+### 2.1) Ejemplos [🔝](#índice-) 
+
+<details>
+  <summary>Ver</summary>
+
+
+<br>
+
+</details>
+
+
+
+
+<br>
+
+
+## Sección 3) Prueba de funcionalidad y Referencias. 
+
+
+### 3.0) Prueba de funcionalidad [🔝](#índice-) 
+
+<details>
+  <summary>Ver</summary>
+
+<br>
+
+</details>
+
+
+### 3.1) Referencias [🔝](#índice-)
+
+<details>
+  <summary>Ver</summary>
+ 
+ <br>
+
+#### Configuración
+
+
+#### Herramientas 
+ * [Herramienta de Diseño AWS app.diagrams.net](https://app.diagrams.net/?splash=0&libs=aws4)
+
+
+#### Api Gateway
+ * [Buenas Prácticas Api-Gateway](https://docs.aws.amazon.com/whitepapers/latest/best-practices-api-gateway-private-apis-integration/rest-api.html)
+ * [Creación de Api-keys personalizadas](https://towardsaws.com/protect-your-apis-by-creating-api-keys-using-serverless-framework-fe662ad37447)
+
+ #### Librerías
+ * [Validación de campos](https://www.npmjs.com/package/node-input-validator)
+
+<br>
+
+</details>
