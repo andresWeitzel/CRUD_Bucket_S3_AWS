@@ -179,8 +179,6 @@ sls offline start
 
 
  <br>
- 
-### Tecnologías Implementadas
 
 | **Tecnologías** | **Versión** | **Finalidad** |               
 | ------------- | ------------- | ------------- |
@@ -197,7 +195,6 @@ sls offline start
 
 </br>
 
-### Plugins Implementados.
 
 | **Plugin** | **Descripción** |               
 | -------------  | ------------- |
@@ -208,7 +205,6 @@ sls offline start
 
 </br>
 
-### Extensiones VSC Implementados.
 
 | **Extensión** |              
 | -------------  | 
