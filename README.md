@@ -14,7 +14,7 @@ CRUD Modelo para el manejo de objetos implementado con Systems Manager Parameter
  
  <br>
  
-### Sección 1) Descripción, Tecnologías y Referencias
+### Sección 1)  Descripción, configuración y tecnologías
 
  - [1.0) Descripción del Proyecto.](#10-descripción-)
  - [1.1) Ejecución del Proyecto.](#11-ejecución-del-proyecto-)
@@ -41,7 +41,7 @@ CRUD Modelo para el manejo de objetos implementado con Systems Manager Parameter
 
 <br>
 
-## Sección 1) Descripción, Tecnologías y Dependencias 
+## Sección 1)  Descripción, configuración y tecnologías
 
 
 ### 1.0) Descripción [🔝](#índice-) 
