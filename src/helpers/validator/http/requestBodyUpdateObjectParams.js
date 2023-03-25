@@ -35,8 +35,7 @@ const validateBodyUpdateObjectParams = async (eventBody) => {
           "eventBodyObj.data.type": "string|minLength:3|maxLength:50",
           "eventBodyObj.data.format": "string|minLength:2|maxLength:50",
           "eventBodyObj.data.description": "string|minLength:3|maxLength:100",
-          "eventBodyObj.data.url": "string|minLength:3|maxLength:2000",
-          "eventBodyObj.data.uuid": "integer|minLength:3|maxLength:255",
+          "eventBodyObj.data.url": "string|minLength:3|maxLength:2000"
         }
       );
       validateCheck = await validatorObj.check();

@@ -20,9 +20,7 @@ const {
 const {
     validateAuthHeaders
 } = require("../helpers/auth/headers");
-const {
-    validateBodyAddObjectParams,
-} = require("../helpers/validator/http/requestBodyUploadObjectParams");
+
 
 //Const/Vars
 let eventBody;
