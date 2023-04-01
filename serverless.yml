@@ -64,8 +64,8 @@ resources:
 
 custom:
   s3:
-    host: localhostdir
-    directory: /tmp
+    host: ${file(./serverless_ssm.yml):S3_HOST}
+    directory: ${file(./serverless_ssm.yml):S3_DIRECTORY}
   serverless-offline-ssm:
     stages:
       - dev

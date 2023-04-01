@@ -106,8 +106,11 @@ module.exports.handler = async (event) => {
     newUUID = parseInt(Math.random() * 10000000 + 100000000);
     eventBody.uuid = newUUID;
 
-    //Convert to json to save
-    bucketContent = await JSON.parse(bucketContent);
+    if (typeof bucketContent != 'object') {
+      //Convert to json to save
+      bucketContent = await JSON.parse(bucketContent);
+    }
+
     bucketContent.push(eventBody);
 
     //convert json to string format to save

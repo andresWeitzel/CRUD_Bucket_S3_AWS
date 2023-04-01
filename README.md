@@ -102,6 +102,10 @@ npm i
     S3_CLIENT_ACCESS_KEY_ID: S3RVER
     S3_CLIENT_SECRET_ACCESS_KEY: S3RVER
     S3_CLIENT_ENDPOINT: http://localhost:4569
+        
+    # S3 Config
+    S3_HOST: localhostdir
+    S3_DIRECTORY: /AWS-S3/storage
 
   ```  
 * Ejecutamos el proyecto

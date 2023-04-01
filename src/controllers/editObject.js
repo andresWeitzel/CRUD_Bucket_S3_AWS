@@ -126,6 +126,9 @@ module.exports.handler = async (event) => {
         "The object requested according to the id, is not found inside the bucket.")
     } else if (obj != null) {
 
+
+      console.log('=== PRE SPLICE ===', bucketContent);
+
       let indexObj = await bucketContent.indexOf(obj);
 
       await bucketContent.splice(indexObj, 1);
@@ -134,22 +137,37 @@ module.exports.handler = async (event) => {
       newUUID = parseInt(Math.random() * 10000000 + 100000000);
       eventBody.uuid = newUUID;
 
-      //Convert to json to save
-      bucketContent = await JSON.parse(bucketContent);
 
+      console.log('=== POST CONFIG ===', bucketContent);
+
+      console.log('=== EVENT BODY ===', eventBody);
+
+
+      if (typeof bucketContent != 'object') {
+        //Convert to json to save
+        bucketContent = await JSON.parse(bucketContent);
+      }
+      
       await bucketContent.push(eventBody);
 
-      //convert json to string format to save
-      let newObject = JSON.stringify(bucketContent, null, 2);
 
-      let newObjectResult = await appendBucket(newObject);
 
-      if (newObjectResult != null) {
-        return await bodyResponse(
-          statusCode.OK,
-          eventBody
-        );
-      }
+      // //convert json to string format to save
+      // let newObject = JSON.stringify(bucketContent, null, 2);
+
+      // let newObjectResult = await appendBucket(newObject);
+
+      // if (newObjectResult != null) {
+      //   return await bodyResponse(
+      //     statusCode.OK,
+      //     eventBody
+      //   );
+      // }
+
+      return await bodyResponse(
+        statusCode.OK,
+        'debugging'
+      );
 
     } else {
       return await bodyResponse(
