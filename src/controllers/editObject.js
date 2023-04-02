@@ -31,6 +31,9 @@ const {
 const {
   formatToJson
 } = require("../helpers/format/formatToJson");
+const {
+  findByUuid
+} = require("../helpers/bucket/findByUuid");
 
 
 //Const/Vars
@@ -56,7 +59,6 @@ module.exports.handler = async (event) => {
     bodyObj = null;
     bucketContent = null;
     obj = null;
-    newObject = null;
 
 
     //-- start with validation Headers  ---
@@ -103,32 +105,17 @@ module.exports.handler = async (event) => {
 
     let uuidInput = parseInt(await event.pathParameters.uuid);
 
-
     bucketContent = await readBucket();
 
-    while (bucketContent != null || bucketContent != undefined) {
-      bucketContent = await JSON.parse(bucketContent);
-
-      obj = null;
-      for (i of bucketContent) {
-        objUuid = i.uuid;
-
-        checkObjUuid = objUuid == uuidInput ? true : false;
-
-        if (checkObjUuid) {
-          obj = i;
-          break;
-        }
-      }
-
-      break;
-    }
+    obj = await findByUuid(bucketContent, uuidInput);
 
     if (obj == null) {
       return await bodyResponse(
         statusCode.BAD_REQUEST,
         "The object requested according to the id, is not found inside the bucket.")
     } else if (obj != null) {
+
+      bucketContent = await formatToJson(bucketContent);
 
       let indexObj = await bucketContent.indexOf(obj);
 
@@ -138,18 +125,16 @@ module.exports.handler = async (event) => {
       //Get uuid of old object
       eventBody.uuid = await obj.uuid;
 
-      //Convert to json to save if is not an json format
-      bucketContent = await formatToJson(bucketContent);
-
       //Store the new object in the inside content
       await bucketContent.push(eventBody);
 
       //convert json to string format to save if is not a string format
       newObject = await formatToString(bucketContent);
 
-
-
       let newObjectResult = await appendBucket(newObject);
+
+      //-- end with bucket operations  ---
+
 
       if (newObjectResult != null) {
         return await bodyResponse(
@@ -165,7 +150,6 @@ module.exports.handler = async (event) => {
       )
     }
 
-    //-- end with bucket operations  ---
 
   } catch (error) {
     console.log(error);

@@ -1,8 +1,8 @@
 
 /**
- * @description Convert to string format
+ * @description Convert to json format
  * @param {Object} obj Object type
- * @returns a object string with this format
+ * @returns an object json with this format
  */
 const formatToJson = async (obj) => {
     try {

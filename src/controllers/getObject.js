@@ -18,8 +18,8 @@ const {
     validateAuthHeaders
 } = require("../helpers/auth/headers");
 const {
-    formatToJson
-  } = require("../helpers/format/formatToJson");
+    findByUuid
+  } = require("../helpers/bucket/findByUuid");
   
 
 
@@ -27,10 +27,10 @@ const {
 let eventBody;
 let eventHeaders;
 let jsonInit;
-let uuid;
 let bucketContent;
 let validateReqParams;
 let validateAuth;
+let obj;
 
 
 /**
@@ -44,11 +44,8 @@ module.exports.handler = async (event) => {
         //Init
         jsonInit = [];
         bodyObj = null;
-        uuid = "";
         bucketContent = null;
-        let checkObjUuid=false;
-        let objUuid=0;
-        let obj=null;
+        obj = null;
 
 
         //-- start with validation Headers  ---
@@ -78,26 +75,9 @@ module.exports.handler = async (event) => {
 
         let uuidInput = parseInt( await event.pathParameters.uuid);
 
-
         bucketContent = await readBucket();
 
-        while(bucketContent != null || bucketContent != undefined){
-            bucketContent = await formatToJson(bucketContent);
-
-            obj = null;
-            for (i of bucketContent) {
-              objUuid = i.uuid;
-      
-              checkObjUuid = objUuid == uuidInput ? true : false;
-      
-              if (checkObjUuid) {
-                obj = i;
-                break;
-              }
-            }
-      
-            break;
-        }
+        obj = await findByUuid(bucketContent, uuidInput);
 
         if (obj != null) {
             return await bodyResponse(
