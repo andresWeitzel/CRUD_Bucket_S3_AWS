@@ -40,7 +40,6 @@ const {
 let eventBody;
 let eventHeaders;
 let jsonInit;
-let body;
 let bucketContent;
 let validateReqParams;
 let validateAuth;
@@ -86,7 +85,7 @@ module.exports.handler = async (event) => {
 
     //-- start with validation Body  ---
 
-    eventBody = await JSON.parse(event.body);
+    eventBody = await formatToJson(event.body);
 
     validateBodyAddObject = await validateBodyAddObjectParams(eventBody);
 
@@ -114,9 +113,9 @@ module.exports.handler = async (event) => {
     //Added unique identificator for the object
     eventBody.uuid = await generateUUID();
 
-    newObject = await formatToJson(bucketContent);
+    bucketContent = await formatToJson(bucketContent);
 
-    bucketContent.push(eventBody);
+    await bucketContent.push(eventBody);
 
     newObject = await formatToString(bucketContent);
 

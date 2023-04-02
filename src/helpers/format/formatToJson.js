@@ -1,5 +1,3 @@
-//Const/vars
-let objFormat;
 
 /**
  * @description Convert to string format
@@ -7,16 +5,15 @@ let objFormat;
  * @returns a object string with this format
  */
 const formatToJson = async (obj) => {
-    objFormat = null;
     try {
         if (typeof obj != 'object') {
             //Convert to json to save
-            objFormat = await JSON.parse(obj);
+            obj = await JSON.parse(obj);
           }
     } catch (error) {
         console.log(error);
     }
-    return objFormat;
+    return obj;
 }
 
 module.exports = {

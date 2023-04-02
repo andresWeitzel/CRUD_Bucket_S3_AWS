@@ -37,12 +37,10 @@ const {
 let eventBody;
 let eventHeaders;
 let jsonInit;
-let body;
 let bucketContent;
 let validateReqParams;
 let validateAuth;
 let validateBodyAddObject;
-let newUUID;
 let obj;
 let newObject;
 

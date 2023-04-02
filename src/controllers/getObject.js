@@ -3,9 +3,6 @@
 const {
     readBucket
 } = require("../bucket/readBucket");
-const {
-    appendBucket
-} = require("../bucket/appendBucket");
 //Enums
 const {
     statusCode
@@ -20,6 +17,10 @@ const {
 const {
     validateAuthHeaders
 } = require("../helpers/auth/headers");
+const {
+    formatToJson
+  } = require("../helpers/format/formatToJson");
+  
 
 
 //Const/Vars
@@ -81,7 +82,7 @@ module.exports.handler = async (event) => {
         bucketContent = await readBucket();
 
         while(bucketContent != null || bucketContent != undefined){
-            bucketContent = await JSON.parse(bucketContent);
+            bucketContent = await formatToJson(bucketContent);
 
             obj = null;
             for (i of bucketContent) {
