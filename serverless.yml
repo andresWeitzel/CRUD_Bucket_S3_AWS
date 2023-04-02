@@ -51,12 +51,21 @@ functions:
           private: true 
   editObject:
     handler: src/controllers/editObject.handler
-    description: Function to edit an object from the s3 bucket
+    description: Function to edit an object according to uuid from the s3 bucket
     events:
       - http:
           method: put
           path: /edit-object/{uuid}
-          private: true 
+          private: true
+  deleteObject:
+    handler: src/controllers/deleteObject.handler
+    description: Function to delete an object according to uuid from the s3 bucket
+    events:
+      - http:
+          method: delete
+          path: /delete-object/{uuid}
+          private: true         
+
 
 resources:
   - ${file(src/resources/api-gateway.yml)}

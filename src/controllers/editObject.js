@@ -112,7 +112,9 @@ module.exports.handler = async (event) => {
     if (obj == null) {
       return await bodyResponse(
         statusCode.BAD_REQUEST,
-        "The object requested according to the id, is not found inside the bucket.")
+        `The object requested according to the uuid ${uuidInput}, is not found inside the bucket.`
+      )
+
     } else if (obj != null) {
 
       bucketContent = await formatToJson(bucketContent);
