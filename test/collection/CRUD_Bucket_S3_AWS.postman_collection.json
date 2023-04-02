@@ -38,7 +38,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:4000/dev/get-object",
+							"raw": "http://localhost:4000/dev/get-object/106820732",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -46,7 +46,8 @@
 							"port": "4000",
 							"path": [
 								"dev",
-								"get-object"
+								"get-object",
+								"106820732"
 							]
 						}
 					},
@@ -120,7 +121,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"type\":\"image\",\r\n    \"format\":\"png\",\r\n    \"description\":\"5000 × 3061 png\",\r\n    \"url\":\"https://www.bing.com/images/search?view=detailV2&ccid=Tf4BFI68&id=D66EF5BFB7DA0A645A70240C32CB8664E8F8BF09&thid=OIP.Tf4BFI6846neirVSebC0vAHaEi&mediaurl=https%3a%2f%2flogos-download.com%2fwp-content%2fuploads%2f2016%2f09%2fNode_logo_NodeJS.png&cdnurl=https%3a%2f%2fth.bing.com%2fth%2fid%2fR.4dfe01148ebce3a9de8ab55279b0b4bc%3frik%3dCb%252f46GSGyzIMJA%26pid%3dImgRaw%26r%3d0&exph=3061&expw=5000&q=jpg+nodejs&simid=608055434302923247&FORM=IRPRST&ck=2FF3D39CAEF945F20B996CF6042F88A6&selectedIndex=1&ajaxhist=0&ajaxserp=0\"\r\n}",
+							"raw": "{\r\n    \"type\":\"image\",\r\n    \"format\":\"jpg\",\r\n    \"description\":\"1200 × 1201 png\",\r\n    \"url\":\"https://www.bing.com/images/search?view=detailV2&ccid=Tf4BFI68&id=D66EF5BFB7DA0A645A70240C32CB8664E8F8BF09&thid=OIP.Tf4BFI6846neirVSebC0vAHaEi&  mediaurl=https%3a%2f%2flogos-download.com%2fwp-content%2fuploads%2f2016%2f09%2fNode_logo_NodeJS.png&cdnurl=https%3a%2f%2fth.bing.com%2fth%2fid%2fR.4dfe01148ebce3a9de8ab55279b0b4bc%3frik%3dCb%252f46GSGyzIMJA%26pid%3dImgRaw%26r%3d0&exph=3061&expw=5000&q=jpg+nodejs&simid=608055434302923247&FORM=IRPRST&ck=2FF3D39CAEF945F20B996CF6042F88A6&selectedIndex=1&ajaxhist=0&ajaxserp=0\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -128,7 +129,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:4000/dev/edit-object/104244750",
+							"raw": "http://localhost:4000/dev/edit-object/106820732",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -137,7 +138,49 @@
 							"path": [
 								"dev",
 								"edit-object",
-								"104244750"
+								"106820732"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "DELETE",
+			"item": [
+				{
+					"name": "delete-object",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
+								"type": "text"
+							},
+							{
+								"key": "x-api-key",
+								"value": "f98d8cd98h73s204e3456998ecl9427j",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:4000/dev/delete-object/106820732",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"dev",
+								"delete-object",
+								"106820732"
 							]
 						}
 					},
