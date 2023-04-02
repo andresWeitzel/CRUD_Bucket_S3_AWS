@@ -25,13 +25,18 @@ const {
 const {
   validateBodyUpdateObjectParams,
 } = require("../helpers/validator/http/requestBodyUpdateObjectParams");
+const {
+  formatToString
+} = require("../helpers/format/formatToString");
+const {
+  formatToJson
+} = require("../helpers/format/formatToJson");
 
 
 //Const/Vars
 let eventBody;
 let eventHeaders;
 let jsonInit;
-let uuid;
 let body;
 let bucketContent;
 let validateReqParams;
@@ -39,6 +44,7 @@ let validateAuth;
 let validateBodyAddObject;
 let newUUID;
 let obj;
+let newObject;
 
 /**
  * @description edit an object in s3 bucket based on its uuid
@@ -50,9 +56,9 @@ module.exports.handler = async (event) => {
     //Init
     jsonInit = [];
     bodyObj = null;
-    uuid = "";
     bucketContent = null;
     obj = null;
+    newObject = null;
 
 
     //-- start with validation Headers  ---
@@ -126,48 +132,33 @@ module.exports.handler = async (event) => {
         "The object requested according to the id, is not found inside the bucket.")
     } else if (obj != null) {
 
-
-      console.log('=== PRE SPLICE ===', bucketContent);
-
       let indexObj = await bucketContent.indexOf(obj);
 
+      //Remove the object with the entered uuid
       await bucketContent.splice(indexObj, 1);
 
-      //Added unique identificator for the object
-      newUUID = parseInt(Math.random() * 10000000 + 100000000);
-      eventBody.uuid = newUUID;
+      //Get uuid of old object
+      eventBody.uuid = await obj.uuid;
 
+      //Convert to json to save if is not an json format
+      bucketContent = await formatToJson(bucketContent);
 
-      console.log('=== POST CONFIG ===', bucketContent);
-
-      console.log('=== EVENT BODY ===', eventBody);
-
-
-      if (typeof bucketContent != 'object') {
-        //Convert to json to save
-        bucketContent = await JSON.parse(bucketContent);
-      }
-      
+      //Store the new object in the inside content
       await bucketContent.push(eventBody);
 
+      //convert json to string format to save if is not a string format
+      newObject = await formatToString(bucketContent);
 
 
-      // //convert json to string format to save
-      // let newObject = JSON.stringify(bucketContent, null, 2);
 
-      // let newObjectResult = await appendBucket(newObject);
+      let newObjectResult = await appendBucket(newObject);
 
-      // if (newObjectResult != null) {
-      //   return await bodyResponse(
-      //     statusCode.OK,
-      //     eventBody
-      //   );
-      // }
-
-      return await bodyResponse(
-        statusCode.OK,
-        'debugging'
-      );
+      if (newObjectResult != null) {
+        return await bodyResponse(
+          statusCode.OK,
+          eventBody
+        );
+      }
 
     } else {
       return await bodyResponse(

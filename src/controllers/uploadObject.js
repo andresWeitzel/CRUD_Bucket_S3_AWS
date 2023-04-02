@@ -25,18 +25,27 @@ const {
 const {
   validateBodyAddObjectParams,
 } = require("../helpers/validator/http/requestBodyAddObjectParams");
+const {
+  generateUUID,
+} = require("../helpers/math/generateUuid");
+const {
+  formatToString
+} = require("../helpers/format/formatToString");
+const {
+  formatToJson
+} = require("../helpers/format/formatToJson");
 
 
 //Const/Vars
 let eventBody;
 let eventHeaders;
 let jsonInit;
-let uuid;
 let body;
 let bucketContent;
 let validateReqParams;
 let validateAuth;
 let validateBodyAddObject;
+let newObject;
 
 /**
  * @description add an object inside the s3 bucket 
@@ -48,8 +57,8 @@ module.exports.handler = async (event) => {
     //Init
     jsonInit = [];
     bodyObj = null;
-    uuid = "";
     bucketContent = null;
+    newObject = null;
 
 
     //-- start with validation Headers  ---
@@ -103,18 +112,13 @@ module.exports.handler = async (event) => {
       );
     }
     //Added unique identificator for the object
-    newUUID = parseInt(Math.random() * 10000000 + 100000000);
-    eventBody.uuid = newUUID;
+    eventBody.uuid = await generateUUID();
 
-    if (typeof bucketContent != 'object') {
-      //Convert to json to save
-      bucketContent = await JSON.parse(bucketContent);
-    }
+    newObject = await formatToJson(bucketContent);
 
     bucketContent.push(eventBody);
 
-    //convert json to string format to save
-    let newObject = JSON.stringify(bucketContent, null, 2);
+    newObject = await formatToString(bucketContent);
 
     let newObjectResult = await appendBucket(newObject);
 
