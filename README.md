@@ -48,8 +48,24 @@ CRUD Modelo para el manejo de objetos implementado con Systems Manager Parameter
 
 <details>
   <summary>Ver</summary>
- 
  <br>
+
+#### 1.0.0) Descripción General
+
+  * Esta app esta dividida en varias funcionalidades/componentes. El primer componente o capa de conexión (/bucket) es la interacción con aws-sdk y con el bucket. Se modulariza de forma tal qué tenemos archivos .js para la creación de clientes s3, lectura de bucket, escritura de bucket, etc.
+  Luego para la capa de aplicación (/helpers) tenemos validaciones de encabezados, cuerpo de solicitudes, formatos de fechas, autenticación, etc.
+  Seguidamente la capa controlador/vista (/controllers) está definida por las operaciones CRUD posibles en cada una de las  lambdas definidas.  
+
+ 
+ #### 1.0.1) Descripción Arquitectura y Funcionamiento
+ 
+ * La imagen de la arquitectura de aws empleada describe el flujo de funcionamiento de la app de forma general. Cualquier petición hacia el bucket parte desde un cliente (Postman, servidor, etc). 
+ * `Paso 0` : Dicha solicitud es recibida por el api-gateway y solamente se validará si es que dentro de los encabezados de dicha solicitud se encuentra la x-api-key correcta.
+ * `Pasos 1A, 1B, etc` : Todos estos pasos corresponden a un endpoint con su recurso especifico. Por ej. para uploadObject (1A) es http://localhost:4000/dev/upload-object ....revisar dichos endpoints en [sección endpoints](#sección-2-endpoints-y-ejemplos). Cada lambda realiza comprobación de x-api-key y Bearer token, entre otros.
+ * `Pasos 2` : Las lambdas realizan las validaciones de las ssm correspondientes con el System Manager Paramater Store.. validan token, valores para el bucket s3, etc.
+ * `Pasos 3` : Las lambdas realizan las solicitudes y operaciones necesarias contra el bucket s3 (lectura, actualización, eliminación e inserción de objetos).
+ * `Aclaraciones` : Se emula dicho funcionamiento dentro de la misma red y en entorno local con los plugins de serverless correspondientes. 
+
 
 <br>
 
