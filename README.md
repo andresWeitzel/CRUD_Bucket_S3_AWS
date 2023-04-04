@@ -4,6 +4,8 @@
 
 # CRUD_Bucket_S3_AWS
 CRUD Modelo para el manejo de objetos implementado con Systems Manager Parameter Store, Bucket S3, Api-Gateway, Serverless-Framework, Lambda, NodeJs, entre otros. Los servicios de aws se implementan en local. El código del proyecto y la documentación de este (menos doc técnica), ha sido desarrollado/a en inglés.
+* [Playlist prueba de funcionalidad](https://www.youtube.com/playlist?list=PLCl11UFjHurDPyOkEXOR6JO-vUnYqd1FW)
+
 
 <br>
 
@@ -52,7 +54,7 @@ CRUD Modelo para el manejo de objetos implementado con Systems Manager Parameter
 
 #### 1.0.0) Descripción General
 
-  * Esta app esta dividida en varias funcionalidades/componentes. El primer componente o capa de conexión (/bucket) es la interacción con aws-sdk y con el bucket. Se modulariza de forma tal qué tenemos archivos .js para la creación de clientes s3, lectura de bucket, escritura de bucket, etc.
+  * Esta app está dividida en varias funcionalidades/componentes. El primer componente o capa de conexión (/bucket) es la interacción con aws-sdk y con el bucket. Se modulariza de forma tal qué tenemos archivos .js para la creación de clientes s3, lectura de bucket, escritura de bucket, etc.
   Luego para la capa de aplicación (/helpers) tenemos validaciones de encabezados, cuerpo de solicitudes, formatos de fechas, autenticación, etc.
   Seguidamente la capa controlador/vista (/controllers) está definida por las operaciones CRUD posibles en cada una de las  lambdas definidas.  
 
@@ -80,7 +82,7 @@ CRUD Modelo para el manejo de objetos implementado con Systems Manager Parameter
  
 * Una vez creado un entorno de trabajo a través de algún ide, clonamos el proyecto
 ```git
-git clone https://github.com/andresWeitzel/Microservice_Mercadolibre_Users_AWS
+git clone https://github.com/andresWeitzel/CRUD_Bucket_S3_AWS
 ```
 * Nos posicionamos sobre el proyecto
 ```git
@@ -246,6 +248,19 @@ sls offline start
 
 <details>
   <summary>Ver</summary>
+<br>
+
+### Subir un objeto al bucket
+* http://localhost:4000/dev/upload-object
+
+### Obtener un objeto del bucket
+* http://localhost:4000/dev/get-object/{uuid}
+
+### Editar un objeto del bucket
+* http://localhost:4000/dev/edit-object/{uuid}
+
+### Eliminar un objeto del bucket
+* http://localhost:4000/dev/delete-object/{uuid}
 
 <br>
 
@@ -258,6 +273,35 @@ sls offline start
 
 <details>
   <summary>Ver</summary>
+<br>
+
+### Subir un objeto al bucket
+#### Request
+``` postman
+- Método : POST
+
+- Url : http://localhost:4000/dev/upload-object
+
+- Headers: 
+  - Content-Type : application/json
+  - Authorization : Bearer {value}
+  - x-api-key : {value}
+
+- Body : 
+
+    {
+        "type":"image",
+        "format":"JPG",
+        "description":"1000 × 1261 png",
+        "url":"https://www.bing.com/images/search?view=detailV2&ccid=Tf4BFI68&id=D66EF5BFB7DA0A645A70240C32CB8664E8F8BF09&thid=OIP.Tf4BFI6846neirVSebC0vAHaEi&mediaurl=https%3a%2f%2flogos-download.com%2fwp-content%2fuploads%2f2016%2f09%2fNode_logo_NodeJS.png&cdnurl=https%3a%2f%2fth.bing.com%2fth%2fid%2fR.4dfe01148ebce3a9de8ab55279b0b4bc%3frik%3dCb%252f46GSGyzIMJA%26pid%3dImgRaw%26r%3d0&exph=3061&expw=5000&q=jpg+nodejs&simid=608055434302923247&FORM=IRPRST&ck=2FF3D39CAEF945F20B996CF6042F88A6&selectedIndex=1&ajaxhist=0&ajaxserp=0"
+    }
+
+```
+
+#### Response
+``` postman
+
+```
 
 
 <br>
@@ -296,6 +340,8 @@ sls offline start
 #### Herramientas 
  * [Herramienta de Diseño AWS app.diagrams.net](https://app.diagrams.net/?splash=0&libs=aws4)
 
+#### AWS-SDK
+* [Doc Oficial](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-s3/index.html) 
 
 #### Api Gateway
  * [Buenas Prácticas Api-Gateway](https://docs.aws.amazon.com/whitepapers/latest/best-practices-api-gateway-private-apis-integration/rest-api.html)
