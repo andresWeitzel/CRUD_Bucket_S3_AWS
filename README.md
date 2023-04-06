@@ -52,14 +52,14 @@ CRUD Modelo para el manejo de objetos implementado con Systems Manager Parameter
   <summary>Ver</summary>
  <br>
 
-#### 1.0.0) Descripción General
+### 1.0.0) Descripción General
 
   * Esta app está dividida en varias funcionalidades/componentes. El primer componente o capa de conexión (/bucket) es la interacción con aws-sdk y con el bucket. Se modulariza de forma tal qué tenemos archivos .js para la creación de clientes s3, lectura de bucket, escritura de bucket, etc.
   Luego para la capa de aplicación (/helpers) tenemos validaciones de encabezados, cuerpo de solicitudes, formatos de fechas, autenticación, etc.
   Seguidamente la capa controlador/vista (/controllers) está definida por las operaciones CRUD posibles en cada una de las  lambdas definidas.  
 
  
- #### 1.0.1) Descripción Arquitectura y Funcionamiento
+ ### 1.0.1) Descripción Arquitectura y Funcionamiento
  
  * La imagen de la arquitectura de aws empleada describe el flujo de funcionamiento de la app de forma general. Cualquier petición hacia el bucket parte desde un cliente (Postman, servidor, etc). 
  * `Paso 0` : Dicha solicitud es recibida por el api-gateway y solamente se validará si es que dentro de los encabezados de dicha solicitud se encuentra la x-api-key correcta.
@@ -78,6 +78,7 @@ CRUD Modelo para el manejo de objetos implementado con Systems Manager Parameter
 
 <details>
   <summary>Ver</summary>
+  <br>
  
  
 * Una vez creado un entorno de trabajo a través de algún ide, clonamos el proyecto
@@ -141,7 +142,6 @@ sls offline start
 
 <details>
   <summary>Ver</summary>
- 
  <br>
  
   
@@ -186,20 +186,15 @@ npm i serverless-offline-ssm --save-dev
 sls offline start
 ```
 
-
-
-
-
 <br>
 
 </details>
+
 
 ### 1.3) Tecnologías [🔝](#índice-)
 
 <details>
   <summary>Ver</summary>
-
-
  <br>
 
 | **Tecnologías** | **Versión** | **Finalidad** |               
@@ -288,7 +283,6 @@ sls offline start
   - x-api-key : {value}
 
 - Body : 
-
     {
         "type":"image",
         "format":"JPG",
@@ -300,16 +294,113 @@ sls offline start
 
 #### Response
 ``` postman
+{
+    "message": {
+        "type": "image",
+        "format": "JPG",
+        "description": "1000 × 1261 png",
+        "url": "https://www.bing.com/images/search?view=detailV2&ccid=Tf4BFI68&id=D66EF5BFB7DA0A645A70240C32CB8664E8F8BF09&thid=OIP.Tf4BFI6846neirVSebC0vAHaEi&mediaurl=https%3a%2f%2flogos-download.com%2fwp-content%2fuploads%2f2016%2f09%2fNode_logo_NodeJS.png&cdnurl=https%3a%2f%2fth.bing.com%2fth%2fid%2fR.4dfe01148ebce3a9de8ab55279b0b4bc%3frik%3dCb%252f46GSGyzIMJA%26pid%3dImgRaw%26r%3d0&exph=3061&expw=5000&q=jpg+nodejs&simid=608055434302923247&FORM=IRPRST&ck=2FF3D39CAEF945F20B996CF6042F88A6&selectedIndex=1&ajaxhist=0&ajaxserp=0",
+        "uuid": 103053674
+    }
+}
+```
+
+
+### Obtener un objeto del bucket
+#### Request
+``` postman
+- Método : GET
+
+- Url : http://localhost:4000/dev/get-object/{uuid}
+
+- Headers: 
+  - Content-Type : application/json
+  - Authorization : Bearer {value}
+  - x-api-key : {value}
+
+- Body : 
+  NULL
 
 ```
 
+#### Response
+``` postman
+{
+    "message": {
+        "type": "image",
+        "format": "jpg",
+        "description": "1000 × 1261 png",
+        "url": "https://www.bing.com/images/search?view=detailV2&ccid=Tf4BFI68&id=D66EF5BFB7DA0A645A70240C32CB8664E8F8BF09&thid=OIP.Tf4BFI6846neirVSebC0vAHaEi&mediaurl=https%3a%2f%2flogos-download.com%2fwp-content%2fuploads%2f2016%2f09%2fNode_logo_NodeJS.png&cdnurl=https%3a%2f%2fth.bing.com%2fth%2fid%2fR.4dfe01148ebce3a9de8ab55279b0b4bc%3frik%3dCb%252f46GSGyzIMJA%26pid%3dImgRaw%26r%3d0&exph=3061&expw=5000&q=jpg+nodejs&simid=608055434302923247&FORM=IRPRST&ck=2FF3D39CAEF945F20B996CF6042F88A6&selectedIndex=1&ajaxhist=0&ajaxserp=0",
+        "uuid": 103053674
+    }
+}
+```
+
+
+### Actualizar un objeto del bucket
+#### Request
+``` postman
+- Método : PUT
+
+- Url : http://localhost:4000/dev/edit-object/{uuid}
+
+- Headers: 
+  - Content-Type : application/json
+  - Authorization : Bearer {value}
+  - x-api-key : {value}
+
+- Body : 
+  {
+    "type":"image",
+    "format":"png",
+    "description":"EDITED",
+    "url":"https://www.bing.com/images/search?view=detailV2&ccid=Tf4BFI68&id=D66EF5BFB7DA0A645A70240C32CB8664E8F8BF09&thid=OIP.Tf4BFI6846neirVSebC0vAHaEi&  mediaurl=https%3a%2f%2flogos-download.com%2fwp-content%2fuploads%2f2016%2f09%2fNode_logo_NodeJS.png&cdnurl=https%3a%2f%2fth.bing.com%2fth%2fid%2fR.4dfe01148ebce3a9de8ab55279b0b4bc%3frik%3dCb%252f46GSGyzIMJA%26pid%3dImgRaw%26r%3d0&exph=3061&expw=5000&q=jpg+nodejs&simid=608055434302923247&FORM=IRPRST&ck=2FF3D39CAEF945F20B996CF6042F88A6&selectedIndex=1&ajaxhist=0&ajaxserp=0"
+}
+
+```
+
+#### Response
+``` postman
+{
+    "message": {
+        "type": "image",
+        "format": "JPG",
+        "description": "1000 × 1261 png",
+        "url": "https://www.bing.com/images/search?view=detailV2&ccid=Tf4BFI68&id=D66EF5BFB7DA0A645A70240C32CB8664E8F8BF09&thid=OIP.Tf4BFI6846neirVSebC0vAHaEi&mediaurl=https%3a%2f%2flogos-download.com%2fwp-content%2fuploads%2f2016%2f09%2fNode_logo_NodeJS.png&cdnurl=https%3a%2f%2fth.bing.com%2fth%2fid%2fR.4dfe01148ebce3a9de8ab55279b0b4bc%3frik%3dCb%252f46GSGyzIMJA%26pid%3dImgRaw%26r%3d0&exph=3061&expw=5000&q=jpg+nodejs&simid=608055434302923247&FORM=IRPRST&ck=2FF3D39CAEF945F20B996CF6042F88A6&selectedIndex=1&ajaxhist=0&ajaxserp=0",
+        "uuid": 103053674
+    }
+}
+```
+
+
+
+### Eliminar un objeto del bucket
+#### Request
+``` postman
+- Método : PUT
+
+- Url : http://localhost:4000/dev/delete-object/{uuid}
+
+- Headers: 
+  - Content-Type : application/json
+  - Authorization : Bearer {value}
+  - x-api-key : {value}
+
+- Body : 
+  NULL
+
+```
+
+#### Response
+``` postman
+{
+    "message": "Removed object with uuid 103053674 successfully."
+}
+```
 
 <br>
 
 </details>
-
-
-
 
 <br>
 
@@ -321,8 +412,11 @@ sls offline start
 
 <details>
   <summary>Ver</summary>
-
 <br>
+
+#### Tipos de Operaciones | [Ver](https://www.youtube.com/playlist?list=PLCl11UFjHurDPyOkEXOR6JO-vUnYqd1FW)
+
+![Index app](./doc/assets/pruebaFuncionalBucket.png)
 
 </details>
 
@@ -331,10 +425,11 @@ sls offline start
 
 <details>
   <summary>Ver</summary>
- 
  <br>
 
-#### Configuración
+#### Configuración buckets
+* [s3-example](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/s3-example-configuring-buckets.html)
+* [s3-examples oficial](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/s3-node-examples.html)
 
 
 #### Herramientas 
