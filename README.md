@@ -280,6 +280,7 @@ sls offline start
 }
 ```
 
+<br>
 
 ### Obtener un objeto del bucket
 #### Request
@@ -311,6 +312,7 @@ sls offline start
 }
 ```
 
+<br>
 
 ### Actualizar un objeto del bucket
 #### Request
@@ -347,7 +349,7 @@ sls offline start
 }
 ```
 
-
+<br>
 
 ### Eliminar un objeto del bucket
 #### Request
