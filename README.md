@@ -27,7 +27,6 @@ CRUD Modelo para el manejo de objetos implementado con Systems Manager Parameter
 ### Sección 2) Endpoints y Ejemplos 
  
  - [2.0) EndPoints y recursos.](#20-endpoints-y-recursos-)
- - [2.1) Ejemplos.](#21-ejemplos-)
 
 ### Sección 3) Prueba de funcionalidad y Referencias
  
@@ -245,30 +244,6 @@ sls offline start
   <summary>Ver</summary>
 <br>
 
-### Subir un objeto al bucket
-* http://localhost:4000/dev/upload-object
-
-### Obtener un objeto del bucket
-* http://localhost:4000/dev/get-object/{uuid}
-
-### Editar un objeto del bucket
-* http://localhost:4000/dev/edit-object/{uuid}
-
-### Eliminar un objeto del bucket
-* http://localhost:4000/dev/delete-object/{uuid}
-
-<br>
-
-</details>
-
-
-
-
-### 2.1) Ejemplos [🔝](#índice-) 
-
-<details>
-  <summary>Ver</summary>
-<br>
 
 ### Subir un objeto al bucket
 #### Request
