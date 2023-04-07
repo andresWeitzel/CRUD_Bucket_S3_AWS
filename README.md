@@ -244,18 +244,28 @@ sls offline start
   <summary>Ver</summary>
 <br>
 
+### 2.1.0) Variables en Postman
 
-### Subir un objeto al bucket
+| **Variable** | **Initial value** | **Current value** |               
+| ------------- | ------------- | ------------- |
+| base_url | http://localhost:4000  | http://localhost:4000 |
+| x-api-key | f98d8cd98h73s204e3456998ecl9427j  | f98d8cd98h73s204e3456998ecl9427j |
+| bearer_token | Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c  | Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c |
+
+<br>
+
+
+### 2.1.1) Subir un objeto al bucket
 #### Request
 ``` postman
 - Método : POST
 
-- Url : http://localhost:4000/dev/upload-object
+- Url : {{base_url}}/dev/upload-object
 
 - Headers: 
-  - Content-Type : application/json
-  - Authorization : Bearer {value}
-  - x-api-key : {value}
+   - Content-Type : application/json
+   - Authorization : {{bearer_token}}
+   - x-api-key : {{x-api-key}}
 
 - Body : 
     {
@@ -282,17 +292,17 @@ sls offline start
 
 <br>
 
-### Obtener un objeto del bucket
+### 2.1.2) Obtener un objeto del bucket
 #### Request
 ``` postman
 - Método : GET
 
-- Url : http://localhost:4000/dev/get-object/{uuid}
+- Url : {{base_url}}/dev/get-object/{uuid}
 
 - Headers: 
   - Content-Type : application/json
-  - Authorization : Bearer {value}
-  - x-api-key : {value}
+  - Authorization : {{bearer_token}}
+  - x-api-key : {{x-api-key}}
 
 - Body : 
   NULL
@@ -314,17 +324,17 @@ sls offline start
 
 <br>
 
-### Actualizar un objeto del bucket
+### 2.1.3) Actualizar un objeto del bucket
 #### Request
 ``` postman
 - Método : PUT
 
-- Url : http://localhost:4000/dev/edit-object/{uuid}
+- Url : {{base_url}}/dev/edit-object/{uuid}
 
 - Headers: 
   - Content-Type : application/json
-  - Authorization : Bearer {value}
-  - x-api-key : {value}
+  - Authorization : {{bearer_token}}
+  - x-api-key : {{x-api-key}}
 
 - Body : 
   {
@@ -351,17 +361,17 @@ sls offline start
 
 <br>
 
-### Eliminar un objeto del bucket
+### 2.1.4) Eliminar un objeto del bucket
 #### Request
 ``` postman
-- Método : PUT
+- Método : DELETE
 
-- Url : http://localhost:4000/dev/delete-object/{uuid}
+- Url : {{base_url}}/dev/delete-object/{uuid}
 
 - Headers: 
   - Content-Type : application/json
-  - Authorization : Bearer {value}
-  - x-api-key : {value}
+  - Authorization : {{bearer_token}}
+  - x-api-key : {{x-api-key}}
 
 - Body : 
   NULL
