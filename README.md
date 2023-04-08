@@ -88,6 +88,7 @@ git clone https://github.com/andresWeitzel/CRUD_Bucket_S3_AWS
 ```git
 cd 'projectName'
 ```
+* Instalamos la última versión LTS de [Nodejs(v18)](https://nodejs.org/en/download)
 * Instalamos Serverless Framework de forma global si es que aún no lo hemos realizado
 ```git
 npm install -g serverless
@@ -148,6 +149,7 @@ sls offline start
 ```git
 cd 'projectName'
 ```
+* Instalamos la última versión LTS de [Nodejs(v18)](https://nodejs.org/en/download)
 * Instalamos Serverless Framework de forma global si es que aún no lo hemos realizado
 ```git
 npm install -g serverless
