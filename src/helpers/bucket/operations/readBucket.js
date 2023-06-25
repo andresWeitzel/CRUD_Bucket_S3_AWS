@@ -1,5 +1,4 @@
 "use strict";
-
 //External
 const {
   GetObjectCommand
@@ -14,6 +13,7 @@ const {
 //Const/Vars
 let objectString;
 let clientS3;
+let resp;
 
 
 
@@ -28,7 +28,7 @@ const readBucket = async () => {
 
     clientS3 = await newClientS3();
 
-    let resp = await clientS3.send(
+    resp = await clientS3.send(
       new GetObjectCommand({
         Bucket: process.env.BUCKET_NAME,
         Key: process.env.BUCKET_KEY,
@@ -41,7 +41,7 @@ const readBucket = async () => {
     return objectString;
 
   } catch (error) {
-    console.log(error);
+    console.error(`ERROR in function readBucket(). Caused by ${error} . Specific stack is ${error.stack} `);
   }
 }
 

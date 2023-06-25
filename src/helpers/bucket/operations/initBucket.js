@@ -1,3 +1,4 @@
+"use strict";
 //Imports
 const {
     readBucket
@@ -29,7 +30,7 @@ const initBucketIfEmpty = async () => {
             return;
         }
     } catch (error) {
-        console.log(error);
+        console.error(`ERROR in function initBucketIfEmpty(). Caused by ${error} . Specific stack is ${error.stack} `);
     }
 }
 

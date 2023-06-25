@@ -1,13 +1,3 @@
-//Bucket
-const {
-  initBucketIfEmpty
-} = require("../bucket/initBucket");
-const {
-  readBucket
-} = require("../bucket/readBucket");
-const {
-  appendBucket
-} = require("../bucket/appendBucket");
 //Enums
 const {
   statusCode
@@ -34,7 +24,15 @@ const {
 const {
   formatToJson
 } = require("../helpers/format/formatToJson");
-
+const {
+  initBucketIfEmpty
+} = require("../helpers/bucket/operations/initBucket");
+const {
+  readBucket
+} = require("../helpers/bucket/operations/readBucket");
+const {
+  appendBucket
+} = require("../helpers/bucket/operations/appendBucket");
 
 //Const/Vars
 let eventBody;

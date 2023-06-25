@@ -1,8 +1,3 @@
-//Bucket
-
-const {
-    readBucket
-} = require("../bucket/readBucket");
 //Enums
 const {
     statusCode
@@ -18,11 +13,11 @@ const {
     validateAuthHeaders
 } = require("../helpers/auth/headers");
 const {
+    readBucket
+} = require("../helpers/bucket/operations/readBucket");
+const {
     findByUuid
-  } = require("../helpers/bucket/findByUuid");
-  
-
-
+  } = require("../helpers/bucket/operations/findByUuid");
 //Const/Vars
 let eventBody;
 let eventHeaders;

@@ -1,13 +1,3 @@
-//Bucket
-const {
-  initBucketIfEmpty
-} = require("../bucket/initBucket");
-const {
-  readBucket
-} = require("../bucket/readBucket");
-const {
-  appendBucket
-} = require("../bucket/appendBucket");
 //Enums
 const {
   statusCode
@@ -32,8 +22,17 @@ const {
   formatToJson
 } = require("../helpers/format/formatToJson");
 const {
-  findByUuid
-} = require("../helpers/bucket/findByUuid");
+  initBucketIfEmpty
+} = require("../helpers/bucket/operations/initBucket");
+const {
+  readBucket
+} = require("../helpers/bucket/operations/readBucket");
+const {
+  appendBucket
+} = require("../helpers/bucket/operations/appendBucket");
+const {
+    findByUuid
+  } = require("../helpers/bucket/operations/findByUuid");
 
 
 //Const/Vars

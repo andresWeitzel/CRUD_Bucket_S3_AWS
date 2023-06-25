@@ -1,3 +1,4 @@
+"use strict";
 //Helpers
 const {
     formatToJson
@@ -37,7 +38,7 @@ const findByUuid = async (bucketContent, uuidInput) => {
             break;
         }
     } catch (error) {
-        console.log(error);
+        console.error(`ERROR in function findByUuid(). Caused by ${error} . Specific stack is ${error.stack} `);
     }
     return obj;
 }

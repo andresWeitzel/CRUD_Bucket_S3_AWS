@@ -3,9 +3,8 @@
 const {
     PutObjectCommand
 } = require("@aws-sdk/client-s3");
-
-//Bucket
-const { newClientS3 } = require('./clientS3');
+//Helpers
+const { newClientS3 } = require('../config/clientS3');
 //Const/Vars
 let clientS3;
 let clientS3Result;
@@ -29,7 +28,7 @@ const appendBucket = async (appendData) => {
             })
         );
     } catch (error) {
-        console.log(error);
+        console.error(`ERROR in function appendBucket(). Caused by ${error} . Specific stack is ${error.stack} `);
     }
     
     return clientS3Result;
