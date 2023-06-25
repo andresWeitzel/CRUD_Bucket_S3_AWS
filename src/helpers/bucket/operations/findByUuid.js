@@ -1,7 +1,7 @@
 //Helpers
 const {
     formatToJson
-} = require("../format/formatToJson");
+} = require("../../format/formatToJson");
 
 //Const-Vars
 let obj;

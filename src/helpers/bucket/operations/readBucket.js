@@ -10,7 +10,7 @@ const {
 //Bucket
 const {
   newClientS3
-} = require('./clientS3');
+} = require('../config/clientS3');
 //Const/Vars
 let objectString;
 let clientS3;
