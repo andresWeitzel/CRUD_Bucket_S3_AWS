@@ -1,3 +1,4 @@
+"use strict";
 //Enums
 const {
   statusCode
@@ -37,12 +38,14 @@ const {
 //Const/Vars
 let eventBody;
 let eventHeaders;
-let jsonInit;
 let bucketContent;
 let validateReqParams;
 let validateAuth;
 let validateBodyAddObject;
 let newObject;
+let newObjectResult;
+let msg;
+let code;
 
 /**
  * @description add an object inside the s3 bucket 
@@ -52,10 +55,11 @@ let newObject;
 module.exports.handler = async (event) => {
   try {
     //Init
-    jsonInit = [];
-    bodyObj = null;
     bucketContent = null;
     newObject = null;
+    newObjectResult = null;
+    msg = null;
+    code = null;
 
 
     //-- start with validation Headers  ---
@@ -117,7 +121,7 @@ module.exports.handler = async (event) => {
 
     newObject = await formatToString(bucketContent);
 
-    let newObjectResult = await appendBucket(newObject);
+    newObjectResult = await appendBucket(newObject);
 
     if (newObjectResult != null) {
       return await bodyResponse(
@@ -134,11 +138,11 @@ module.exports.handler = async (event) => {
     //-- end with bucket operations  ---
 
   } catch (error) {
-    console.log(error);
-    return await bodyResponse(
-      statusCode.INTERNAL_SERVER_ERROR,
-      "An unexpected error has occurred. Try again"
-    );
+    code = statusCode.INTERNAL_SERVER_ERROR;
+    msg = `Error in UPLOAD OBJECT lambda. Caused by ${error}. Stack error type : ${error.stack}`;
+    console.error(msg);
+
+    return await bodyResponse(code, msg);
   }
 
 }

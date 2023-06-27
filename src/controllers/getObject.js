@@ -1,3 +1,4 @@
+"use strict";
 //Enums
 const {
     statusCode
@@ -19,13 +20,14 @@ const {
     findByUuid
   } = require("../helpers/bucket/operations/findByUuid");
 //Const/Vars
-let eventBody;
 let eventHeaders;
-let jsonInit;
 let bucketContent;
 let validateReqParams;
 let validateAuth;
+let uuidInput;
 let obj;
+let msg;
+let code;
 
 
 /**
@@ -37,10 +39,11 @@ let obj;
 module.exports.handler = async (event) => {
     try {
         //Init
-        jsonInit = [];
-        bodyObj = null;
         bucketContent = null;
+        uuidInput = null;
         obj = null;
+        msg = null;
+        code = null;
 
 
         //-- start with validation Headers  ---
@@ -68,7 +71,7 @@ module.exports.handler = async (event) => {
 
         //-- start with bucket operations  ---
 
-        let uuidInput = parseInt( await event.pathParameters.uuid);
+        uuidInput = parseInt( await event.pathParameters.uuid);
 
         bucketContent = await readBucket();
 
@@ -94,11 +97,11 @@ module.exports.handler = async (event) => {
         //-- end with bucket operations  ---
 
     } catch (error) {
-        console.log(error);
-        return await bodyResponse(
-            statusCode.INTERNAL_SERVER_ERROR,
-            "An unexpected error has occurred. Try again"
-        );
+        code = statusCode.INTERNAL_SERVER_ERROR;
+        msg = `Error in GET OBJECT lambda. Caused by ${error}. Stack error type : ${error.stack}`;
+        console.error(msg);
+    
+        return await bodyResponse(code, msg);
     }
 
 }

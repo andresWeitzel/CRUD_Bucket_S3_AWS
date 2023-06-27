@@ -1,10 +1,8 @@
 "use strict";
-
 //External
 const {
     S3Client
 } = require("@aws-sdk/client-s3");
-
 
 /**
  * @description define the credentials and endpoint for a new s3 client
@@ -23,7 +21,9 @@ const newClientS3 = async () => {
 
        return client;
     } catch (error) {
-        console.log(error);
+        console.error(
+            `Error in newClientS3() function. Caused by ${error}. Specific stack is ${error.stack}`
+          );
     }
 }
 

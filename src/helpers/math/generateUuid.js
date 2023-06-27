@@ -1,3 +1,4 @@
+"use strict";
 //Const/vars
 let newUUID;
 
@@ -7,11 +8,12 @@ let newUUID;
  * @example 109401114
  */
 const generateUUID = async () => {
-    newUUID = null;
     try {
+        newUUID = null;
+        
         newUUID = parseInt(Math.random() * 10000000 + 100000000);
     } catch (error) {
-        console.log(error);
+        console.error(`ERROR in function generateUUID(). Caused by ${error} . Specific stack is ${error.stack} `);
     }
     return newUUID;
 }

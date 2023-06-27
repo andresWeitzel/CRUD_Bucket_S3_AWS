@@ -260,27 +260,19 @@ npm start
 
 <br>
 
-### 2.1.1) Subir un objeto al bucket
-#### Request
+### 2.1.1) Subir un objeto al bucket s3
+#### Request | Code snippet
 ``` postman
-- Método : POST
-
-- Url : {{base_url}}/dev/upload-object
-
-- Headers: 
-   - Content-Type : application/json
-   - Authorization : {{bearer_token}}
-   - x-api-key : {{x-api-key}}
-
-- Body : 
-
-    {
-        "type":"image",
-        "format":"JPG",
-        "description":"1000 × 1261 png",
-        "url":"https://www.bing.com/images/search?view=detailV2&ccid=Tf4BFI68&id=D66EF5BFB7DA0A645A70240C32CB8664E8F8BF09&thid=OIP.Tf4BFI6846neirVSebC0vAHaEi&mediaurl=https%3a%2f%2flogos-download.com%2fwp-content%2fuploads%2f2016%2f09%2fNode_logo_NodeJS.png&cdnurl=https%3a%2f%2fth.bing.com%2fth%2fid%2fR.4dfe01148ebce3a9de8ab55279b0b4bc%3frik%3dCb%252f46GSGyzIMJA%26pid%3dImgRaw%26r%3d0&exph=3061&expw=5000&q=jpg+nodejs&simid=608055434302923247&FORM=IRPRST&ck=2FF3D39CAEF945F20B996CF6042F88A6&selectedIndex=1&ajaxhist=0&ajaxserp=0"
-    }
-
+curl --location 'http://localhost:4000/dev/upload-object' \
+--header 'x-api-key: f98d8cd98h73s204e3456998ecl9427j' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c' \
+--header 'Content-Type: application/json' \
+--data '{
+    "type":"image",
+    "format":"png",
+    "description":"5000 × 3061 png",
+    "url":"https://www.bing.com/images/search?view=detailV2&ccid=Tf4BFI68&id=D66EF5BFB7DA0A645A70240C32CB8664E8F8BF09&thid=OIP.Tf4BFI6846neirVSebC0vAHaEi&mediaurl=https%3a%2f%2flogos-download.com%2fwp-content%2fuploads%2f2016%2f09%2fNode_logo_NodeJS.png&cdnurl=https%3a%2f%2fth.bing.com%2fth%2fid%2fR.4dfe01148ebce3a9de8ab55279b0b4bc%3frik%3dCb%252f46GSGyzIMJA%26pid%3dImgRaw%26r%3d0&exph=3061&expw=5000&q=jpg+nodejs&simid=608055434302923247&FORM=IRPRST&ck=2FF3D39CAEF945F20B996CF6042F88A6&selectedIndex=1&ajaxhist=0&ajaxserp=0"
+}'
 ```
 
 #### Response
@@ -288,10 +280,10 @@ npm start
 {
     "message": {
         "type": "image",
-        "format": "JPG",
-        "description": "1000 × 1261 png",
+        "format": "png",
+        "description": "5000 × 3061 png",
         "url": "https://www.bing.com/images/search?view=detailV2&ccid=Tf4BFI68&id=D66EF5BFB7DA0A645A70240C32CB8664E8F8BF09&thid=OIP.Tf4BFI6846neirVSebC0vAHaEi&mediaurl=https%3a%2f%2flogos-download.com%2fwp-content%2fuploads%2f2016%2f09%2fNode_logo_NodeJS.png&cdnurl=https%3a%2f%2fth.bing.com%2fth%2fid%2fR.4dfe01148ebce3a9de8ab55279b0b4bc%3frik%3dCb%252f46GSGyzIMJA%26pid%3dImgRaw%26r%3d0&exph=3061&expw=5000&q=jpg+nodejs&simid=608055434302923247&FORM=IRPRST&ck=2FF3D39CAEF945F20B996CF6042F88A6&selectedIndex=1&ajaxhist=0&ajaxserp=0",
-        "uuid": 103053674
+        "uuid": 104851112
     }
 }
 ```
@@ -300,22 +292,14 @@ npm start
 
 <br>
 
-### 2.1.2) Obtener un objeto del bucket
-#### Request
+### 2.1.2) Obtener un objeto del bucket según su uuuid
+#### Request | Code snippet
 ``` postman
-- Método : GET
-
-- Url : {{base_url}}/dev/get-object/{uuid}
-
-- Headers: 
-  - Content-Type : application/json
-  - Authorization : {{bearer_token}}
-  - x-api-key : {{x-api-key}}
-
-- Body : 
-      
-      NULL
-
+curl --location 'http://localhost:4000/dev/get-object/103053674' \
+--header 'x-api-key: f98d8cd98h73s204e3456998ecl9427j' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c' \
+--header 'Content-Type: application/json' \
+--data ''
 ```
 
 #### Response
@@ -335,25 +319,19 @@ npm start
 
 <br>
 
-### 2.1.3) Actualizar un objeto del bucket
-#### Request
+### 2.1.3) Actualizar un objeto del bucket s3
+#### Request | Code snippet
 ``` postman
-- Método : PUT
-
-- Url : {{base_url}}/dev/edit-object/{uuid}
-
-- Headers: 
-  - Content-Type : application/json
-  - Authorization : {{bearer_token}}
-  - x-api-key : {{x-api-key}}
-
-- Body : 
-  {
+curl --location --request PUT 'http://localhost:4000/dev/edit-object/104851112' \
+--header 'x-api-key: f98d8cd98h73s204e3456998ecl9427j' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c' \
+--header 'Content-Type: application/json' \
+--data '{
     "type":"image",
-    "format":"png",
-    "description":"EDITED",
+    "format":"jpg",
+    "description":"1200 × 1201 png",
     "url":"https://www.bing.com/images/search?view=detailV2&ccid=Tf4BFI68&id=D66EF5BFB7DA0A645A70240C32CB8664E8F8BF09&thid=OIP.Tf4BFI6846neirVSebC0vAHaEi&  mediaurl=https%3a%2f%2flogos-download.com%2fwp-content%2fuploads%2f2016%2f09%2fNode_logo_NodeJS.png&cdnurl=https%3a%2f%2fth.bing.com%2fth%2fid%2fR.4dfe01148ebce3a9de8ab55279b0b4bc%3frik%3dCb%252f46GSGyzIMJA%26pid%3dImgRaw%26r%3d0&exph=3061&expw=5000&q=jpg+nodejs&simid=608055434302923247&FORM=IRPRST&ck=2FF3D39CAEF945F20B996CF6042F88A6&selectedIndex=1&ajaxhist=0&ajaxserp=0"
-  }
+}'
 
 ```
 
@@ -362,10 +340,10 @@ npm start
 {
     "message": {
         "type": "image",
-        "format": "JPG",
-        "description": "1000 × 1261 png",
-        "url": "https://www.bing.com/images/search?view=detailV2&ccid=Tf4BFI68&id=D66EF5BFB7DA0A645A70240C32CB8664E8F8BF09&thid=OIP.Tf4BFI6846neirVSebC0vAHaEi&mediaurl=https%3a%2f%2flogos-download.com%2fwp-content%2fuploads%2f2016%2f09%2fNode_logo_NodeJS.png&cdnurl=https%3a%2f%2fth.bing.com%2fth%2fid%2fR.4dfe01148ebce3a9de8ab55279b0b4bc%3frik%3dCb%252f46GSGyzIMJA%26pid%3dImgRaw%26r%3d0&exph=3061&expw=5000&q=jpg+nodejs&simid=608055434302923247&FORM=IRPRST&ck=2FF3D39CAEF945F20B996CF6042F88A6&selectedIndex=1&ajaxhist=0&ajaxserp=0",
-        "uuid": 103053674
+        "format": "jpg",
+        "description": "1200 × 1201 png",
+        "url": "https://www.bing.com/images/search?view=detailV2&ccid=Tf4BFI68&id=D66EF5BFB7DA0A645A70240C32CB8664E8F8BF09&thid=OIP.Tf4BFI6846neirVSebC0vAHaEi&  mediaurl=https%3a%2f%2flogos-download.com%2fwp-content%2fuploads%2f2016%2f09%2fNode_logo_NodeJS.png&cdnurl=https%3a%2f%2fth.bing.com%2fth%2fid%2fR.4dfe01148ebce3a9de8ab55279b0b4bc%3frik%3dCb%252f46GSGyzIMJA%26pid%3dImgRaw%26r%3d0&exph=3061&expw=5000&q=jpg+nodejs&simid=608055434302923247&FORM=IRPRST&ck=2FF3D39CAEF945F20B996CF6042F88A6&selectedIndex=1&ajaxhist=0&ajaxserp=0",
+        "uuid": 104851112
     }
 }
 ```
@@ -375,27 +353,18 @@ npm start
 <br>
 
 ### 2.1.4) Eliminar un objeto del bucket
-#### Request
+#### Request | Code snippet
 ``` postman
-- Método : DELETE
-
-- Url : {{base_url}}/dev/delete-object/{uuid}
-
-- Headers: 
-  - Content-Type : application/json
-  - Authorization : {{bearer_token}}
-  - x-api-key : {{x-api-key}}
-
-- Body : 
-      
-      NULL
-
+curl --location --request DELETE 'http://localhost:4000/dev/delete-object/104851112' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c' \
+--header 'x-api-key: f98d8cd98h73s204e3456998ecl9427j' \
+--header 'Content-Type: application/json'
 ```
 
 #### Response
 ``` postman
 {
-    "message": "Removed object with uuid 103053674 successfully."
+    "message": "Removed object with uuid 104851112 successfully."
 }
 ```
 

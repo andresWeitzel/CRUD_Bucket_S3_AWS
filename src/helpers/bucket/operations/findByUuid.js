@@ -17,14 +17,15 @@ let checkObjUuid;
  * @returns a json object
  */
 const findByUuid = async (bucketContent, uuidInput) => {
-    obj = null;
-    objUuid = null;
-    checkObjUuid = false;
     try {
+        obj = null;
+        objUuid = null;
+        checkObjUuid = false;
+        
         while (bucketContent != null || bucketContent != undefined) {
             bucketContent = await formatToJson(bucketContent);
 
-            for (i of bucketContent) {
+            for (let i of bucketContent) {
                 objUuid = i.uuid;
 
                 checkObjUuid = (objUuid == uuidInput) ? true : false;

@@ -1,3 +1,4 @@
+"use strict";
 //Enums
 const {
   statusCode
@@ -38,13 +39,17 @@ const {
 //Const/Vars
 let eventBody;
 let eventHeaders;
-let jsonInit;
 let bucketContent;
 let validateReqParams;
 let validateAuth;
 let validateBodyAddObject;
 let obj;
+let uuidInput;
 let newObject;
+let indexObj;
+let newObjectResult;
+let msg;
+let code;
 
 /**
  * @description edit an object in s3 bucket based on its uuid
@@ -54,10 +59,13 @@ let newObject;
 module.exports.handler = async (event) => {
   try {
     //Init
-    jsonInit = [];
-    bodyObj = null;
     bucketContent = null;
+    uuidInput = null;
+    indexObj = null;
+    newObjectResult = null;
     obj = null;
+    msg = null;
+    code = null;
 
 
     //-- start with validation Headers  ---
@@ -102,7 +110,7 @@ module.exports.handler = async (event) => {
 
     await initBucketIfEmpty();
 
-    let uuidInput = parseInt(await event.pathParameters.uuid);
+    uuidInput = parseInt(await event.pathParameters.uuid);
 
     bucketContent = await readBucket();
 
@@ -118,7 +126,7 @@ module.exports.handler = async (event) => {
 
       bucketContent = await formatToJson(bucketContent);
 
-      let indexObj = await bucketContent.indexOf(obj);
+      indexObj = await bucketContent.indexOf(obj);
 
       //Remove the object with the entered uuid
       await bucketContent.splice(indexObj, 1);
@@ -132,7 +140,7 @@ module.exports.handler = async (event) => {
       //convert json to string format to save if is not a string format
       newObject = await formatToString(bucketContent);
 
-      let newObjectResult = await appendBucket(newObject);
+      newObjectResult = await appendBucket(newObject);
 
       //-- end with bucket operations  ---
 
@@ -153,11 +161,11 @@ module.exports.handler = async (event) => {
 
 
   } catch (error) {
-    console.log(error);
-    return await bodyResponse(
-      statusCode.INTERNAL_SERVER_ERROR,
-      "An unexpected error has occurred. Try again"
-    );
+    code = statusCode.INTERNAL_SERVER_ERROR;
+    msg = `Error in EDIT OBJECT lambda. Caused by ${error}. Stack error type : ${error.stack}`;
+    console.error(msg);
+
+    return await requestResult(code, msg);
   }
 
 }
