@@ -20,10 +20,10 @@ const validateBodyUpdateObjectParams = async (eventBody) => {
     if (eventBody != null) {
       eventBodyObj = {
         data: {
-          type: await eventBody["type"],
-          format: await eventBody["format"],
-          description: await eventBody["description"],
-          url: await eventBody["url"],
+          type: await eventBody.type,
+          format: await eventBody.format,
+          description: await eventBody.description,
+          url: await eventBody.url,
         },
       };
 
