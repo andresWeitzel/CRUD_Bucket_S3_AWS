@@ -31,7 +31,8 @@ const {
 const {
     findByUuid
   } = require("../helpers/bucket/operations/findByUuid");
-  
+
+//For refactor
   
   //Const/Vars
   let eventHeaders;
