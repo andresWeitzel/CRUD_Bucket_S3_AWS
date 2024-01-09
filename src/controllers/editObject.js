@@ -1,40 +1,23 @@
-"use strict";
+'use strict';
 //Enums
-const {
-  statusCode
-} = require("../enums/http/statusCode");
+const { statusCode } = require('../enums/http/statusCode');
 //Helpers
-const {
-  bodyResponse
-} = require("../helpers/http/bodyResponse");
+const { bodyResponse } = require('../helpers/http/bodyResponse');
 const {
   validateHeadersParams,
-} = require("../helpers/validator/http/requestHeadersParams");
-const {
-  validateAuthHeaders
-} = require("../helpers/auth/headers");
+} = require('../helpers/validator/http/requestHeadersParams');
+const { validateAuthHeaders } = require('../helpers/auth/headers');
 const {
   validateBodyUpdateObjectParams,
-} = require("../helpers/validator/http/requestBodyUpdateObjectParams");
+} = require('../helpers/validator/http/requestBodyUpdateObjectParams');
+const { formatToString } = require('../helpers/format/formatToString');
+const { formatToJson } = require('../helpers/format/formatToJson');
 const {
-  formatToString
-} = require("../helpers/format/formatToString");
-const {
-  formatToJson
-} = require("../helpers/format/formatToJson");
-const {
-  initBucketIfEmpty
-} = require("../helpers/bucket/operations/initBucket");
-const {
-  readBucket
-} = require("../helpers/bucket/operations/readBucket");
-const {
-  appendBucket
-} = require("../helpers/bucket/operations/appendBucket");
-const {
-    findByUuid
-  } = require("../helpers/bucket/operations/findByUuid");
-
+  initBucketIfEmpty,
+} = require('../helpers/bucket/operations/initBucket');
+const { readBucket } = require('../helpers/bucket/operations/readBucket');
+const { appendBucket } = require('../helpers/bucket/operations/appendBucket');
+const { findByUuid } = require('../helpers/bucket/operations/findByUuid');
 
 //Const/Vars
 let eventBody;
@@ -67,7 +50,6 @@ module.exports.handler = async (event) => {
     msg = null;
     code = null;
 
-
     //-- start with validation Headers  ---
     eventHeaders = await event.headers;
 
@@ -76,7 +58,7 @@ module.exports.handler = async (event) => {
     if (!validateReqParams) {
       return await bodyResponse(
         statusCode.BAD_REQUEST,
-        "Bad request, check missing or malformed headers"
+        'Bad request, check missing or malformed headers',
       );
     }
 
@@ -85,11 +67,10 @@ module.exports.handler = async (event) => {
     if (!validateAuth) {
       return await bodyResponse(
         statusCode.UNAUTHORIZED,
-        "Not authenticated, check x_api_key and Authorization"
+        'Not authenticated, check x_api_key and Authorization',
       );
     }
     //-- end with validation Headers  ---
-
 
     //-- start with validation Body  ---
 
@@ -100,11 +81,10 @@ module.exports.handler = async (event) => {
     if (!validateBodyAddObject) {
       return await bodyResponse(
         statusCode.BAD_REQUEST,
-        "Bad request, check request attributes. Missing or incorrect"
+        'Bad request, check request attributes. Missing or incorrect',
       );
     }
     // -- end with validation Body  ---
-
 
     //-- start with bucket operations  ---
 
@@ -119,11 +99,9 @@ module.exports.handler = async (event) => {
     if (obj == null) {
       return await bodyResponse(
         statusCode.BAD_REQUEST,
-        `The object requested according to the uuid ${uuidInput}, is not found inside the bucket.`
-      )
-
+        `The object requested according to the uuid ${uuidInput}, is not found inside the bucket.`,
+      );
     } else if (obj != null) {
-
       bucketContent = await formatToJson(bucketContent);
 
       indexObj = await bucketContent.indexOf(obj);
@@ -144,22 +122,15 @@ module.exports.handler = async (event) => {
 
       //-- end with bucket operations  ---
 
-
       if (newObjectResult != null) {
-        return await bodyResponse(
-          statusCode.OK,
-          eventBody
-        );
+        return await bodyResponse(statusCode.OK, eventBody);
       }
-
     } else {
       return await bodyResponse(
         statusCode.INTERNAL_SERVER_ERROR,
-        "An unexpected error has occurred. The object could not update inside the bucket."
-      )
+        'An unexpected error has occurred. The object could not update inside the bucket.',
+      );
     }
-
-
   } catch (error) {
     code = statusCode.INTERNAL_SERVER_ERROR;
     msg = `Error in EDIT OBJECT lambda. Caused by ${error}. Stack error type : ${error.stack}`;
@@ -167,5 +138,4 @@ module.exports.handler = async (event) => {
 
     return await requestResult(code, msg);
   }
-
-}
+};

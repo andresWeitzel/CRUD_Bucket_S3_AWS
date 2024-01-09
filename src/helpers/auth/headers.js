@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 //Environment vars
 const X_API_KEY = process.env.X_API_KEY;
 const BEARER_TOKEN = process.env.BEARER_TOKEN;
@@ -14,8 +14,8 @@ let validate;
  */
 const validateAuthHeaders = async (eventHeaders) => {
   try {
-    xApiKey = await eventHeaders["x-api-key"];
-    authorization = await eventHeaders["Authorization"];
+    xApiKey = await eventHeaders['x-api-key'];
+    authorization = await eventHeaders['Authorization'];
 
     validate =
       xApiKey != X_API_KEY ||
@@ -26,7 +26,7 @@ const validateAuthHeaders = async (eventHeaders) => {
   } catch (error) {
     validate = false;
     console.error(
-      `Error in validateAuthHeaders() function. Caused by ${error}. Specific stack is ${error.stack}`
+      `Error in validateAuthHeaders() function. Caused by ${error}. Specific stack is ${error.stack}`,
     );
   }
   return validate;
