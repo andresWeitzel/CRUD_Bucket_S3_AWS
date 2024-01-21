@@ -1,14 +1,11 @@
-"use strict";
+'use strict';
 //Helpers
-const {
-    formatToJson
-} = require("../../format/formatToJson");
+const { formatToJson } = require('../../format/formatToJson');
 
 //Const-Vars
 let obj;
 let objUuid;
 let checkObjUuid;
-
 
 /**
  * @description Find an object inside the bucket based on the specified uuid
@@ -17,33 +14,35 @@ let checkObjUuid;
  * @returns a json object
  */
 const findByUuid = async (bucketContent, uuidInput) => {
-    try {
-        obj = null;
-        objUuid = null;
-        checkObjUuid = false;
-        
-        while (bucketContent != null || bucketContent != undefined) {
-            bucketContent = await formatToJson(bucketContent);
+  try {
+    obj = null;
+    objUuid = null;
+    checkObjUuid = false;
 
-            for (let i of bucketContent) {
-                objUuid = i.uuid;
+    while (bucketContent != null || bucketContent != undefined) {
+      bucketContent = await formatToJson(bucketContent);
 
-                checkObjUuid = (objUuid == uuidInput) ? true : false;
+      for (let i of bucketContent) {
+        objUuid = i.uuid;
 
-                if (checkObjUuid) {
-                    obj = i;
-                    break;
-                }
-            }
+        checkObjUuid = objUuid == uuidInput ? true : false;
 
-            break;
+        if (checkObjUuid) {
+          obj = i;
+          break;
         }
-    } catch (error) {
-        console.error(`ERROR in function findByUuid(). Caused by ${error} . Specific stack is ${error.stack} `);
+      }
+
+      break;
     }
-    return obj;
-}
+  } catch (error) {
+    console.error(
+      `ERROR in function findByUuid(). Caused by ${error} . Specific stack is ${error.stack} `,
+    );
+  }
+  return obj;
+};
 
 module.exports = {
-    findByUuid
-}
+  findByUuid,
+};
