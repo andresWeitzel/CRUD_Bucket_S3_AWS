@@ -1,24 +1,42 @@
-'use strict';
+"use strict";
 //Enums
-const { statusCode } = require('../enums/http/statusCode');
+const { statusCode } = require("../enums/http/statusCode");
+const {
+  validateHeadersMessage,
+} = require("../enums/validation/errors/status-message");
 //Helpers
-const { bodyResponse } = require('../helpers/http/bodyResponse');
+const { bodyResponse } = require("../helpers/http/bodyResponse");
 const {
   validateHeadersParams,
-} = require('../helpers/validator/http/requestHeadersParams');
-const { validateAuthHeaders } = require('../helpers/auth/headers');
-const { formatToString } = require('../helpers/format/formatToString');
-const { formatToJson } = require('../helpers/format/formatToJson');
+} = require("../helpers/validator/http/requestHeadersParams");
+const { validateAuthHeaders } = require("../helpers/auth/headers");
+const { formatToString } = require("../helpers/format/formatToString");
+const { formatToJson } = require("../helpers/format/formatToJson");
 const {
   initBucketIfEmpty,
-} = require('../helpers/bucket/operations/initBucket');
-const { readBucket } = require('../helpers/bucket/operations/readBucket');
-const { appendBucket } = require('../helpers/bucket/operations/appendBucket');
-const { findByUuid } = require('../helpers/bucket/operations/findByUuid');
-
-//For refactor
-
-//Const/Vars
+} = require("../helpers/bucket/operations/initBucket");
+const { readBucket } = require("../helpers/bucket/operations/readBucket");
+const { appendBucket } = require("../helpers/bucket/operations/appendBucket");
+const { findByUuid } = require("../helpers/bucket/operations/findByUuid");
+//Const
+// validate msg
+const HEADERS_PARAMS_ERROR_MESSAGE =
+  validateHeadersMessage.HEADERS_PARAMS_ERROR_MESSAGE;
+const HEADERS_AUTH_ERROR_MESSAGE =
+  validateHeadersMessage.HEADERS_AUTH_ERROR_MESSAGE;
+//statu-code
+const INTERNAL_SERVER_ERROR_CODE = statusCode.INTERNAL_SERVER_ERROR;
+const INTERNAL_SERVER_ERROR_MESSAGE =
+  "An unexpected error has occurred. The object could not delete from the bucket.";
+const BAD_REQUEST_CODE = statusCode.BAD_REQUEST;
+const BAD_REQUEST_UUID_MESSAGE =
+  "The object requested from delete is not found inside the bucket according to the uuid ";
+const BAD_REQUEST_DELETE_OBJECT_MESSAGE =
+  "The object has been deleted correctly according to the id ";
+const UNAUTHORIZED_CODE = statusCode.UNAUTHORIZED;
+const OK_CODE = statusCode.OK;
+const DELETE_OBJECT_ERROR_DETAIL = "Error in delete-object lambda function.";
+//Vars
 let eventHeaders;
 let validateReqParams;
 let validateAuth;
@@ -27,8 +45,8 @@ let indexObj;
 let uuidInput;
 let bucketContent;
 let bucketContentResult;
-let msg;
-let code;
+let msgResponse;
+let msgLog;
 
 /**
  * @description Function to delete an object according to its uuid from the s3 repository
@@ -43,8 +61,8 @@ module.exports.handler = async (event) => {
     uuidInput = null;
     indexObj = null;
     bucketContentResult = null;
-    msg = null;
-    code = null;
+    msgResponse = null;
+    msgLog = null;
 
     //-- start with validation Headers  ---
     eventHeaders = await event.headers;
@@ -52,19 +70,13 @@ module.exports.handler = async (event) => {
     validateReqParams = await validateHeadersParams(eventHeaders);
 
     if (!validateReqParams) {
-      return await bodyResponse(
-        statusCode.BAD_REQUEST,
-        'Bad request, check missing or malformed headers',
-      );
+      return await bodyResponse(BAD_REQUEST_CODE, HEADERS_PARAMS_ERROR_MESSAGE);
     }
 
     validateAuth = await validateAuthHeaders(eventHeaders);
 
     if (!validateAuth) {
-      return await bodyResponse(
-        statusCode.UNAUTHORIZED,
-        'Not authenticated, check x_api_key and Authorization',
-      );
+      return await bodyResponse(UNAUTHORIZED_CODE, HEADERS_AUTH_ERROR_MESSAGE);
     }
     //-- end with validation Headers  ---
 
@@ -80,8 +92,8 @@ module.exports.handler = async (event) => {
 
     if (obj == null) {
       return await bodyResponse(
-        statusCode.BAD_REQUEST,
-        'The object requested according to the uuid, is not found inside the bucket.',
+        BAD_REQUEST_CODE,
+        BAD_REQUEST_UUID_MESSAGE + uuidInput
       );
     } else if (obj != null) {
       bucketContent = await formatToJson(bucketContent);
@@ -100,21 +112,21 @@ module.exports.handler = async (event) => {
 
       if (bucketContentResult != null) {
         return await bodyResponse(
-          statusCode.OK,
-          `Removed object with uuid ${uuidInput} successfully.`,
+          OK_CODE,
+          BAD_REQUEST_DELETE_OBJECT_MESSAGE + uuidInput
         );
       }
     } else {
       return await bodyResponse(
-        statusCode.INTERNAL_SERVER_ERROR,
-        'An unexpected error has occurred. The object could not removed from the bucket.',
+        INTERNAL_SERVER_ERROR_CODE,
+        INTERNAL_SERVER_ERROR_MESSAGE
       );
     }
   } catch (error) {
-    code = statusCode.INTERNAL_SERVER_ERROR;
-    msg = `Error in DELETE OBJECT lambda. Caused by ${error}. Stack error type : ${error.stack}`;
-    console.error(msg);
+    msgResponse = DELETE_OBJECT_ERROR_DETAIL;
+    msgLog = msgResponse + `Caused by ${error}`;
+    console.log(msgLog);
 
-    return await requestResult(code, msg);
+    return await bodyResponse(INTERNAL_SERVER_ERROR_CODE, msgResponse);
   }
 };

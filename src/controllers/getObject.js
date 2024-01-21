@@ -1,6 +1,7 @@
 'use strict';
 //Enums
 const { statusCode } = require('../enums/http/statusCode');
+const { validateHeadersMessage } = require('../enums/validation/errors/status-message');
 //Helpers
 const { bodyResponse } = require('../helpers/http/bodyResponse');
 const {
@@ -10,7 +11,12 @@ const { validateAuthHeaders } = require('../helpers/auth/headers');
 const { readBucket } = require('../helpers/bucket/operations/readBucket');
 const { findByUuid } = require('../helpers/bucket/operations/findByUuid');
 //Const
-//statu-code
+// validate msg
+const HEADERS_PARAMS_ERROR_MESSAGE =
+  validateHeadersMessage.HEADERS_PARAMS_ERROR_MESSAGE;
+const HEADERS_AUTH_ERROR_MESSAGE =
+  validateHeadersMessage.HEADERS_AUTH_ERROR_MESSAGE;
+//status-code
 const INTERNAL_SERVER_ERROR_CODE = statusCode.INTERNAL_SERVER_ERROR;
 const INTERNAL_SERVER_ERROR_MESSAGE =
   'An unexpected error has occurred. Cannot read bucket.';
