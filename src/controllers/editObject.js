@@ -1,42 +1,45 @@
 "use strict";
 //Enums
+const { statusCode } = require("../enums/http/statusCode");
 const {
-  statusCode
-} = require("../enums/http/statusCode");
+  validateHeadersMessage,
+} = require("../enums/validation/errors/status-message");
 //Helpers
-const {
-  bodyResponse
-} = require("../helpers/http/bodyResponse");
+const { bodyResponse } = require("../helpers/http/bodyResponse");
 const {
   validateHeadersParams,
 } = require("../helpers/validator/http/requestHeadersParams");
-const {
-  validateAuthHeaders
-} = require("../helpers/auth/headers");
+const { validateAuthHeaders } = require("../helpers/auth/headers");
 const {
   validateBodyUpdateObjectParams,
 } = require("../helpers/validator/http/requestBodyUpdateObjectParams");
+const { formatToString } = require("../helpers/format/formatToString");
+const { formatToJson } = require("../helpers/format/formatToJson");
 const {
-  formatToString
-} = require("../helpers/format/formatToString");
-const {
-  formatToJson
-} = require("../helpers/format/formatToJson");
-const {
-  initBucketIfEmpty
+  initBucketIfEmpty,
 } = require("../helpers/bucket/operations/initBucket");
-const {
-  readBucket
-} = require("../helpers/bucket/operations/readBucket");
-const {
-  appendBucket
-} = require("../helpers/bucket/operations/appendBucket");
-const {
-    findByUuid
-  } = require("../helpers/bucket/operations/findByUuid");
-
-
-//Const/Vars
+const { readBucket } = require("../helpers/bucket/operations/readBucket");
+const { appendBucket } = require("../helpers/bucket/operations/appendBucket");
+const { findByUuid } = require("../helpers/bucket/operations/findByUuid");
+//Const
+// validate msg
+const HEADERS_PARAMS_ERROR_MESSAGE =
+  validateHeadersMessage.HEADERS_PARAMS_ERROR_MESSAGE;
+const HEADERS_AUTH_ERROR_MESSAGE =
+  validateHeadersMessage.HEADERS_AUTH_ERROR_MESSAGE;
+//statu-code
+const INTERNAL_SERVER_ERROR_CODE = statusCode.INTERNAL_SERVER_ERROR;
+const INTERNAL_SERVER_ERROR_MESSAGE =
+  "An unexpected error has occurred. The object could not update inside the bucket.";
+const BAD_REQUEST_CODE = statusCode.BAD_REQUEST;
+const BAD_REQUEST_ADD_OBJECT_MESSAGE =
+  "Bad request, check request attributes. Missing or incorrect";
+const BAD_REQUEST_UUID_MESSAGE =
+  "The object requested is not found inside the bucket according to the uuid ";
+const UNAUTHORIZED_CODE = statusCode.UNAUTHORIZED;
+const OK_CODE = statusCode.OK;
+const EDIT_OBJECT_ERROR_DETAIL = "Error in edit-object lambda function.";
+//Vars
 let eventBody;
 let eventHeaders;
 let bucketContent;
@@ -48,8 +51,8 @@ let uuidInput;
 let newObject;
 let indexObj;
 let newObjectResult;
-let msg;
-let code;
+let msgResponse;
+let msgLog;
 
 /**
  * @description edit an object in s3 bucket based on its uuid
@@ -64,9 +67,8 @@ module.exports.handler = async (event) => {
     indexObj = null;
     newObjectResult = null;
     obj = null;
-    msg = null;
-    code = null;
-
+    msgResponse = null;
+    msgLog = null;
 
     //-- start with validation Headers  ---
     eventHeaders = await event.headers;
@@ -74,22 +76,15 @@ module.exports.handler = async (event) => {
     validateReqParams = await validateHeadersParams(eventHeaders);
 
     if (!validateReqParams) {
-      return await bodyResponse(
-        statusCode.BAD_REQUEST,
-        "Bad request, check missing or malformed headers"
-      );
+      return await bodyResponse(BAD_REQUEST_CODE, HEADERS_PARAMS_ERROR_MESSAGE);
     }
 
     validateAuth = await validateAuthHeaders(eventHeaders);
 
     if (!validateAuth) {
-      return await bodyResponse(
-        statusCode.UNAUTHORIZED,
-        "Not authenticated, check x_api_key and Authorization"
-      );
+      return await bodyResponse(UNAUTHORIZED_CODE, HEADERS_AUTH_ERROR_MESSAGE);
     }
     //-- end with validation Headers  ---
-
 
     //-- start with validation Body  ---
 
@@ -99,12 +94,11 @@ module.exports.handler = async (event) => {
 
     if (!validateBodyAddObject) {
       return await bodyResponse(
-        statusCode.BAD_REQUEST,
-        "Bad request, check request attributes. Missing or incorrect"
+        BAD_REQUEST_CODE,
+        BAD_REQUEST_ADD_OBJECT_MESSAGE
       );
     }
     // -- end with validation Body  ---
-
 
     //-- start with bucket operations  ---
 
@@ -118,12 +112,10 @@ module.exports.handler = async (event) => {
 
     if (obj == null) {
       return await bodyResponse(
-        statusCode.BAD_REQUEST,
-        `The object requested according to the uuid ${uuidInput}, is not found inside the bucket.`
-      )
-
+        BAD_REQUEST_CODE,
+        BAD_REQUEST_UUID_MESSAGE + uuidInput
+      );
     } else if (obj != null) {
-
       bucketContent = await formatToJson(bucketContent);
 
       indexObj = await bucketContent.indexOf(obj);
@@ -144,28 +136,20 @@ module.exports.handler = async (event) => {
 
       //-- end with bucket operations  ---
 
-
       if (newObjectResult != null) {
-        return await bodyResponse(
-          statusCode.OK,
-          eventBody
-        );
+        return await bodyResponse(OK_CODE, eventBody);
       }
-
     } else {
       return await bodyResponse(
-        statusCode.INTERNAL_SERVER_ERROR,
-        "An unexpected error has occurred. The object could not update inside the bucket."
-      )
+        INTERNAL_SERVER_ERROR_CODE,
+        INTERNAL_SERVER_ERROR_MESSAGE
+      );
     }
-
-
   } catch (error) {
-    code = statusCode.INTERNAL_SERVER_ERROR;
-    msg = `Error in EDIT OBJECT lambda. Caused by ${error}. Stack error type : ${error.stack}`;
-    console.error(msg);
+    msgResponse = EDIT_OBJECT_ERROR_DETAIL;
+    msgLog = msgResponse + `Caused by ${error}`;
+    console.log(msgLog);
 
-    return await requestResult(code, msg);
+    return await bodyResponse(INTERNAL_SERVER_ERROR_CODE, msgResponse);
   }
-
-}
+};
