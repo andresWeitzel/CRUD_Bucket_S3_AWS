@@ -1,7 +1,9 @@
 'use strict';
 //Enums
 const { statusCode } = require('../enums/http/statusCode');
-const { validateHeadersMessage } = require('../enums/validation/errors/status-message');
+const {
+  validateHeadersMessage,
+} = require('../enums/validation/errors/status-message');
 //Helpers
 const { bodyResponse } = require('../helpers/http/bodyResponse');
 const {
