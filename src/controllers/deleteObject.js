@@ -1,23 +1,23 @@
-"use strict";
+'use strict';
 //Enums
-const { statusCode } = require("../enums/http/statusCode");
+const { statusCode } = require('../enums/http/statusCode');
 const {
   validateHeadersMessage,
-} = require("../enums/validation/errors/status-message");
+} = require('../enums/validation/errors/status-message');
 //Helpers
-const { bodyResponse } = require("../helpers/http/bodyResponse");
+const { bodyResponse } = require('../helpers/http/bodyResponse');
 const {
   validateHeadersParams,
-} = require("../helpers/validator/http/requestHeadersParams");
-const { validateAuthHeaders } = require("../helpers/auth/headers");
-const { formatToString } = require("../helpers/format/formatToString");
-const { formatToJson } = require("../helpers/format/formatToJson");
+} = require('../helpers/validator/http/requestHeadersParams');
+const { validateAuthHeaders } = require('../helpers/auth/headers');
+const { formatToString } = require('../helpers/format/formatToString');
+const { formatToJson } = require('../helpers/format/formatToJson');
 const {
   initBucketIfEmpty,
-} = require("../helpers/bucket/operations/initBucket");
-const { readBucket } = require("../helpers/bucket/operations/readBucket");
-const { appendBucket } = require("../helpers/bucket/operations/appendBucket");
-const { findByUuid } = require("../helpers/bucket/operations/findByUuid");
+} = require('../helpers/bucket/operations/initBucket');
+const { readBucket } = require('../helpers/bucket/operations/readBucket');
+const { appendBucket } = require('../helpers/bucket/operations/appendBucket');
+const { findByUuid } = require('../helpers/bucket/operations/findByUuid');
 //Const
 // validate msg
 const HEADERS_PARAMS_ERROR_MESSAGE =
@@ -27,15 +27,15 @@ const HEADERS_AUTH_ERROR_MESSAGE =
 //statu-code
 const INTERNAL_SERVER_ERROR_CODE = statusCode.INTERNAL_SERVER_ERROR;
 const INTERNAL_SERVER_ERROR_MESSAGE =
-  "An unexpected error has occurred. The object could not delete from the bucket.";
+  'An unexpected error has occurred. The object could not delete from the bucket.';
 const BAD_REQUEST_CODE = statusCode.BAD_REQUEST;
 const BAD_REQUEST_UUID_MESSAGE =
-  "The object requested from delete is not found inside the bucket according to the uuid ";
+  'The object requested from delete is not found inside the bucket according to the uuid ';
 const BAD_REQUEST_DELETE_OBJECT_MESSAGE =
-  "The object has been deleted correctly according to the id ";
+  'The object has been deleted correctly according to the id ';
 const UNAUTHORIZED_CODE = statusCode.UNAUTHORIZED;
 const OK_CODE = statusCode.OK;
-const DELETE_OBJECT_ERROR_DETAIL = "Error in delete-object lambda function.";
+const DELETE_OBJECT_ERROR_DETAIL = 'Error in delete-object lambda function.';
 //Vars
 let eventHeaders;
 let validateReqParams;
@@ -93,7 +93,7 @@ module.exports.handler = async (event) => {
     if (obj == null) {
       return await bodyResponse(
         BAD_REQUEST_CODE,
-        BAD_REQUEST_UUID_MESSAGE + uuidInput
+        BAD_REQUEST_UUID_MESSAGE + uuidInput,
       );
     } else if (obj != null) {
       bucketContent = await formatToJson(bucketContent);
@@ -113,13 +113,13 @@ module.exports.handler = async (event) => {
       if (bucketContentResult != null) {
         return await bodyResponse(
           OK_CODE,
-          BAD_REQUEST_DELETE_OBJECT_MESSAGE + uuidInput
+          BAD_REQUEST_DELETE_OBJECT_MESSAGE + uuidInput,
         );
       }
     } else {
       return await bodyResponse(
         INTERNAL_SERVER_ERROR_CODE,
-        INTERNAL_SERVER_ERROR_MESSAGE
+        INTERNAL_SERVER_ERROR_MESSAGE,
       );
     }
   } catch (error) {

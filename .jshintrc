@@ -5,3 +5,4 @@
     //https://stackoverflow.com/questions/15894193/disabling-warning-about-require-function-in-jshint
     "node": true
   }
+//Fix
