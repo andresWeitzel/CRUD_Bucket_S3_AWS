@@ -1,5 +1,7 @@
 <div align="center">
-![Index app](https://github.com/andresWeitzel/CRUD_Amazon_S3_AWS/blob/master/doc/assets/CRUD_Bucket_s3.drawio.png)
+ 
+![Index app](./doc/assets/CRUD_Bucket_s3.drawio.png)
+
 </div>
 
 <br>
