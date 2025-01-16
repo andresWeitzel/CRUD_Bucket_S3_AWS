@@ -1,12 +1,14 @@
 
 <div align = "center">
+    
 ![Index app](../doc/assets/CRUD_Bucket_s3.drawio.png)
+
 </div>
 
 <br>
 
 <div align="right">
-    <a href="README.es.md" target="_blank">
+    <a href="../README.es.md" target="_blank">
       <img src="../doc/assets/translation/arg-flag.jpg" width="10%" height="10%" />
   </a> 
    <a href="https://github.com/andresWeitzel/CRUD_Amazon_S3_AWS" target="_blank">
